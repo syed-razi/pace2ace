@@ -5,8 +5,6 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -89,6 +87,9 @@ function getMarksArray(dates, monday, tuesday, wednesday,
                 break;
             case 6:
                 timeAvailable = saturday;
+                break;
+            default:
+                // do nothing
         }
 
         var marksNeeded = (timeAvailable / totalHours) * totalMarks;
@@ -237,6 +238,9 @@ function getTimesArray(estimatedHours, dates, monday, tuesday, wednesday,
                 break;
             case 6:
                 timeAvailable = saturday
+                break;
+            default:
+                // do nothing
         }
 
         var timeRequired = (timeAvailable / totalHours) * totalTimeRequired;
@@ -278,6 +282,9 @@ function getRows(startDate, dueDate, dueTime, estimatedHours, questions,
                 break;
             case 6:
                 timeAvailable = saturday;
+                break;
+            default:
+                // do nothing
         }
         totalHours += timeAvailable;
     }                    
