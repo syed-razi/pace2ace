@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
-// import Preferences from "./Preferences/Preferences";
+import Preferences from "./Preferences/Preferences";
 // import Breakdown from "./Breakdown/Breakdown";
 
 const TabPanel = (props) => {
@@ -32,6 +32,15 @@ const useStyles = (theme) => ({
 
 const App = (props) => {
   const [assignments, setAssignments] = useState([]);
+  const [availability, setAvailability] = useState({
+    monday: 0,
+    tuesday: 0,
+    wednesday: 0,
+    thursday: 0,
+    friday: 0,
+    saturday: 0,
+    sunday: 0,
+  });
   const [tabValue, setTabValue] = useState(0);
 
   const handleAddAssignment = (assignment) => {
@@ -43,119 +52,14 @@ const App = (props) => {
       prevAssignments.filter((assignment) => assignment.id !== assignmentID)
     );
   };
-
-  // const [state, setState] = useState({
-  //   assignments: [],
-  //   assignmentID: 0,
-  //   monday: "",
-  //   tuesday: "",
-  //   wednesday: "",
-  //   thursday: "",
-  //   friday: "",
-  //   saturday: "",
-  //   sunday: "",
-  //   bufferTime: "",
-  //   minWorkTime: "",
-  //   value: 0,
-  //   saved: false,
-  //   edit: false,
-  //   editItem: {
-  //     className: "",
-  //     name: "",
-  //     worth: "",
-  //     startDate: new Date(),
-  //     dueDate: new Date(new Date().setHours(23, 59, 59)),
-  //     estimatedHours: "",
-  //     questions: [],
-  //   },
-  // });
-
-  // const handleAddAssignment = (
-  //   className,
-  //   name,
-  //   worth,
-  //   startDate,
-  //   dueDate,
-  //   dueTime,
-  //   estimatedHours,
-  //   questions
-  // ) => {
-  //   setState((prevState) => ({
-  //     assignmentID: prevState.assignmentID + 1,
-  //     assignments: [
-  //       ...state.assignments,
-  //       {
-  //         className: className,
-  //         name: name,
-  //         worth: worth,
-  //         startDate: startDate,
-  //         dueDate: dueDate,
-  //         dueTime: dueTime,
-  //         estimatedHours: estimatedHours,
-  //         questions: questions,
-  //         id: prevState.assignmentID + 1,
-  //       },
-  //     ],
-  //   }));
+  // const handleSave = (availability) => {
+  //   setAvailability({ ...availability });
+  //   console.log(availability);
   // };
 
-  // const handleDeleteAssignment = (aID) => {
-  //   setState({
-  //     assignments: state.assignments.filter(({ id }) => id !== aID),
-  //   });
-  // };
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue({
-      value: newValue,
-    });
+  const handleAvailabilityChange = (id, newValue) => {
+    setAvailability({ ...availability, [id]: newValue });
   };
-
-  // const handleSave = (
-  //   monday,
-  //   tuesday,
-  //   wednesday,
-  //   thursday,
-  //   friday,
-  //   saturday,
-  //   sunday,
-  //   bufferTime,
-  //   minWorkTime
-  // ) => {
-  //   setState({
-  //     monday: monday,
-  //     tuesday: tuesday,
-  //     wednesday: wednesday,
-  //     thursday: thursday,
-  //     friday: friday,
-  //     saturday: saturday,
-  //     sunday: sunday,
-  //     bufferTime: bufferTime,
-  //     minWorkTime: minWorkTime,
-  //     saved: true,
-  //   });
-  // };
-
-  // const handleEditAssignment = (aID) => {
-  //   console.log(state.editItem);
-  //   var editItem = state.assignments.find(
-  //     ({
-  //       className,
-  //       name,
-  //       worth,
-  //       startDate,
-  //       dueDate,
-  //       dueTime,
-  //       estimatedHours,
-  //       questions,
-  //       id,
-  //     }) => id === aID
-  //   );
-  //   setState({
-  //     edit: true,
-  //     editItem: editItem,
-  //   });
-  // };
 
   const { classes } = props;
 
@@ -163,10 +67,10 @@ const App = (props) => {
     <div className={classes.root}>
       <NavBar />
       <AppBar position="static">
-        <Tabs value={tabValue} onChange={handleTabChange}>
+        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
           <Tab label="Add Assignments" />
-          {/* <Tab label="Preferences" />
-          <Tab label="Breakdown" disabled /> */}
+          <Tab label="Preferences" />
+          {/* <Tab label="Breakdown" disabled /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={tabValue} index={0}>
@@ -174,15 +78,16 @@ const App = (props) => {
           assignments={assignments}
           onAddAssignment={handleAddAssignment}
           onDelete={handleDeleteAssignment}
-          // onDeleteAssignment={handleDeleteAssignment}
-          // onEditAssignment={handleEditAssignment}
-          // editItem={state.editItem}
         />
       </TabPanel>
-      {/* <TabPanel value={state.value} index={1}>
-        <Preferences onSave={handleSave} />
+      <TabPanel value={tabValue} index={1}>
+        <Preferences
+          //onSave={handleSave}
+          availability={availability}
+          onAvailabilityChange={handleAvailabilityChange}
+        />
       </TabPanel>
-      <TabPanel value={state.value} index={2}>
+      {/* <TabPanel value={state.value} index={2}>
         <Breakdown
           assignments={
             //   [{
