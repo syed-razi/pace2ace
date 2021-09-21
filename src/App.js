@@ -164,7 +164,7 @@ const App = (props) => {
       <NavBar />
       <AppBar position="static">
         <Tabs value={tabValue} onChange={handleTabChange}>
-          <Tab label="Input" />
+          <Tab label="Add Assignments" />
           {/* <Tab label="Preferences" />
           <Tab label="Breakdown" disabled /> */}
         </Tabs>

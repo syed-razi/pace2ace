@@ -30,7 +30,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const CreateAssignmentForm = (props) => {
+const NewAssignmentForm = (props) => {
   const [enteredClass, setEnteredClass] = useState("");
   const [enteredName, setEnteredName] = useState("");
   const [enteredWorth, setEnteredWorth] = useState("");
@@ -38,16 +38,6 @@ const CreateAssignmentForm = (props) => {
   const [dueDate, setDueDate] = useState(new Date().setHours(23, 59, 59));
   const [estimatedHours, setEstimatedHours] = useState("");
   const [questions, setQuestions] = useState([]);
-
-  // const [state, setState] = useState({
-  //   className: "",
-  //   name: "",
-  //   worth: "",
-  //   startDate: new Date(),
-  //   dueDate: new Date(new Date().setHours(23, 59, 59)),
-  //   estimatedHours: "",
-  //   questions: [],
-  // });
 
   const { classes } = props;
 
@@ -191,4 +181,4 @@ const CreateAssignmentForm = (props) => {
   );
 };
 
-export default withStyles(useStyles)(CreateAssignmentForm);
+export default withStyles(useStyles)(NewAssignmentForm);
