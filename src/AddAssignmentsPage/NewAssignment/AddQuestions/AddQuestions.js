@@ -24,7 +24,7 @@ const useStyles = (theme) => ({
 });
 
 const AddQuestions = (props) => {
-  const [questions, setQuestions] = useState([]);
+  
 
   const { classes } = props;
 
@@ -33,16 +33,14 @@ const AddQuestions = (props) => {
       <Grid item xs={12}>
         <Paper className={classes.paper}>
           <QuestionsList
-            questions={questions}
-            //onDeleteQuestion={handleDeleteQuestion}
+            questions={props.questions}
+            onDeleteQuestion={props.onDeleteQuestion}
           />
         </Paper>
       </Grid>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <NewQuestion
-          //onAddQuestion={handleAddQuestion}
-          />
+          <NewQuestion onAddQuestion={props.onAddQuestion} />
         </Paper>
       </Grid>
     </div>

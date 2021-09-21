@@ -14,39 +14,33 @@ const useStyles = (theme) => ({
   root: {},
 });
 
-class QuestionsList extends React.Component {
-  handleDeleteQuestion(id) {
-    this.props.onDeleteQuestion(id);
-  }
+const QuestionsList = (props) => {
+  const { classes } = props;
 
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div>
-        <Typography variant="h6" gutterBottom>
-          Enter Question Details Below To Add a Question
-        </Typography>
-        <List>
-          {this.props.questions.map(({ question, marks, id }) => (
-            <ListItem divider key={id}>
-              <ListItemText primary={question} secondary={marks + " marks"} />
-              <ListItemSecondaryAction>
-                <Button
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  className="button"
-                  onClick={this.handleDeleteQuestion.bind(this, id)}
-                >
-                  Delete
-                </Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Typography variant="h6" gutterBottom>
+        Enter Question Details Below To Add a Question
+      </Typography>
+      <List>
+        {props.questions.map(({ question, marks, id }) => (
+          <ListItem divider key={id}>
+            <ListItemText primary={question} secondary={marks + " marks"} />
+            <ListItemSecondaryAction>
+              <Button
+                variant="contained"
+                startIcon={<DeleteIcon />}
+                className="button"
+                onClick={() => props.onDeleteQuestion(id)}
+              >
+                Delete
+              </Button>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+};
 
 export default withStyles(useStyles)(QuestionsList);

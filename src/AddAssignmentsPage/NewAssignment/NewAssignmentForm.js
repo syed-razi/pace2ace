@@ -1,4 +1,11 @@
-import { Grid, Paper, TextField, Button, Typography, Divider } from "@material-ui/core";
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Divider,
+} from "@material-ui/core";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -38,6 +45,7 @@ const NewAssignmentForm = (props) => {
   const [dueDate, setDueDate] = useState(new Date().setHours(23, 59, 59));
   const [estimatedHours, setEstimatedHours] = useState("");
   const [isAddingQuestions, setIsAddingQuestions] = useState(false);
+  const [questions, setQuestions] = useState([]);
 
   const { classes } = props;
 
@@ -67,15 +75,32 @@ const NewAssignmentForm = (props) => {
         startDate: startDate,
         dueDate: dueDate,
         estimatedHours: estimatedHours,
+        questions: questions,
       };
       props.onAddAssignment(newAssignment);
       props.onClose();
     }
   };
 
+  const handleAddQuestion = (question) => {
+    setQuestions((prevQuestions) => [...prevQuestions, question]);
+  };
+
+  const handleDeleteQuestion = (questionId) => {
+    setQuestions((prevQuestions) =>
+      prevQuestions.filter((question) => question.id !== questionId)
+    );
+  };
+
   return (
     <div className="root">
-      {isAddingQuestions && <AddQuestions />}
+      {isAddingQuestions && (
+        <AddQuestions
+          onAddQuestion={handleAddQuestion}
+          onDeleteQuestion={handleDeleteQuestion}
+          questions={questions}
+        />
+      )}
       <Typography variant="h6" gutterBottom>
         Enter Assignment Details Below
       </Typography>
@@ -165,12 +190,14 @@ const NewAssignmentForm = (props) => {
             <Button variant="contained" onClick={props.onClose}>
               Close
             </Button>
-            {!isAddingQuestions && <Button
-              variant="contained"
-              onClick={() => setIsAddingQuestions(true)}
-            >
-              Add Questions
-            </Button>}
+            {!isAddingQuestions && (
+              <Button
+                variant="contained"
+                onClick={() => setIsAddingQuestions(true)}
+              >
+                Add Questions
+              </Button>
+            )}
           </form>
         </Paper>
       </Grid>
