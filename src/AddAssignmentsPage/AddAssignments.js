@@ -1,6 +1,6 @@
 import React from "react";
-import NewAssignment from "./Assignments/NewAssignment";
-import AssignmentList from "./Assignments/AssignmentList";
+import NewAssignment from "./NewAssignment/NewAssignment";
+import AssignmentList from "./AssignmentList/AssignmentList";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";

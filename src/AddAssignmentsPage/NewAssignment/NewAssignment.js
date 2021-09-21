@@ -40,7 +40,7 @@ const NewAssignment = (props) => {
     <div className={classes.root}>
       <Grid container spacing={3}>
         {isAddingAssignment && (
-          <CreateAssignmentForm
+          <NewAssignmentForm
             onClose={closeAddAssignmentForm}
             onAddAssignment={props.onAddAssignment}
           />

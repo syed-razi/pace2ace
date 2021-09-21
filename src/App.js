@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import NavBar from "./Navbar";
-import AddAssignments from "./AddAssignments";
+import AddAssignments from "./AddAssignmentsPage/AddAssignments";
 import { withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";

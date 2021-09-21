@@ -21,7 +21,7 @@ const useStyles = (theme) => ({
   },
 });
 
-class CreateQuestion extends React.Component {
+class NewQuestion extends React.Component {
   constructor(props) {
     super(props);
     this.state = { question: "", marks: "", id: 0 };
@@ -82,4 +82,4 @@ class CreateQuestion extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(CreateQuestion);
+export default withStyles(useStyles)(NewQuestion);

@@ -28,19 +28,20 @@ const AssignmentDetails = (props) => {
 
   return (
     <div className={classes.root}>
-      <div>
-        <Demo>
-          <List>
-            {props.assignments.map((assignment) => (
-              <AssignmentListItem
-                key={assignment.id}
-                assignment={assignment}
-                onDelete={props.onDelete}
-              />
-            ))}
-          </List>
-        </Demo>
-      </div>
+      <Typography variant="h6" gutterBottom>
+        Assignments
+      </Typography>
+      <Demo>
+        <List>
+          {props.assignments.map((assignment) => (
+            <AssignmentListItem
+              key={assignment.id}
+              assignment={assignment}
+              onDelete={props.onDelete}
+            />
+          ))}
+        </List>
+      </Demo>
     </div>
   );
 };

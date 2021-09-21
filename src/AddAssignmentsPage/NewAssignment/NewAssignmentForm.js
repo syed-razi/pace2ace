@@ -1,15 +1,15 @@
-import { Grid, Paper, TextField, Button } from "@material-ui/core";
+import { Grid, Paper, TextField, Button, Typography, Divider } from "@material-ui/core";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
   KeyboardTimePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import Questions from "./Questions";
-import CreateQuestion from "./CreateQuestion";
 import { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+import React, { Fragment } from "react";
+import AddQuestions from "./AddQuestions/AddQuestions";
 
 const useStyles = (theme) => ({
   root: {
@@ -37,7 +37,7 @@ const NewAssignmentForm = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [dueDate, setDueDate] = useState(new Date().setHours(23, 59, 59));
   const [estimatedHours, setEstimatedHours] = useState("");
-  const [questions, setQuestions] = useState([]);
+  const [isAddingQuestions, setIsAddingQuestions] = useState(false);
 
   const { classes } = props;
 
@@ -67,7 +67,6 @@ const NewAssignmentForm = (props) => {
         startDate: startDate,
         dueDate: dueDate,
         estimatedHours: estimatedHours,
-        questions: questions,
       };
       props.onAddAssignment(newAssignment);
       props.onClose();
@@ -75,7 +74,11 @@ const NewAssignmentForm = (props) => {
   };
 
   return (
-    <>
+    <div className="root">
+      {isAddingQuestions && <AddQuestions />}
+      <Typography variant="h6" gutterBottom>
+        Enter Assignment Details Below
+      </Typography>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
           <form className={classes.form} noValidate autoComplete="off">
@@ -150,9 +153,7 @@ const NewAssignmentForm = (props) => {
               value={estimatedHours}
               onChange={(e) => setEstimatedHours(e.target.value)}
             />
-            <Button variant="contained" onClick={props.onClose}>
-              Close
-            </Button>
+            <Divider />
             <Button
               variant="contained"
               startIcon={<AddIcon className={classes.addIcon} />}
@@ -161,23 +162,19 @@ const NewAssignmentForm = (props) => {
             >
               Add Assignment
             </Button>
+            <Button variant="contained" onClick={props.onClose}>
+              Close
+            </Button>
+            {!isAddingQuestions && <Button
+              variant="contained"
+              onClick={() => setIsAddingQuestions(true)}
+            >
+              Add Questions
+            </Button>}
           </form>
         </Paper>
       </Grid>
-      {/* <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Questions
-            questions={state.questions}
-            onDeleteQuestion={handleDeleteQuestion}
-          />
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <CreateQuestion onAddQuestion={handleAddQuestion} />
-        </Paper>
-      </Grid> */}
-    </>
+    </div>
   );
 };
 
