@@ -25,7 +25,7 @@ const AssignmentListItem = (props) => {
         </IconButton>
       }
     >
-      <ListItemText primary={assignment.class} secondary={assignment.name} />
+      <ListItemText primary={assignment.className} secondary={assignment.name} />
     </ListItem>
   );
 };

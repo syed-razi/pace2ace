@@ -7,7 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Preferences from "./Preferences/Preferences";
-// import Breakdown from "./Breakdown/Breakdown";
+import Breakdown from "./Breakdown/Breakdown";
 
 const TabPanel = (props) => {
   //const { children, value, index, ...other } = props;
@@ -45,6 +45,7 @@ const App = (props) => {
 
   const handleAddAssignment = (assignment) => {
     setAssignments((prevAssignments) => [...prevAssignments, assignment]);
+    
   };
 
   const handleDeleteAssignment = (assignmentID) => {
@@ -52,13 +53,10 @@ const App = (props) => {
       prevAssignments.filter((assignment) => assignment.id !== assignmentID)
     );
   };
-  // const handleSave = (availability) => {
-  //   setAvailability({ ...availability });
-  //   console.log(availability);
-  // };
 
   const handleAvailabilityChange = (id, newValue) => {
-    setAvailability({ ...availability, [id]: newValue });
+    setAvailability({ ...availability, [id]: +newValue });
+    console.log(availability);
   };
 
   const { classes } = props;
@@ -70,7 +68,7 @@ const App = (props) => {
         <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
           <Tab label="Add Assignments" />
           <Tab label="Preferences" />
-          {/* <Tab label="Breakdown" disabled /> */}
+          <Tab label="Breakdown" />
         </Tabs>
       </AppBar>
       <TabPanel value={tabValue} index={0}>
@@ -82,55 +80,13 @@ const App = (props) => {
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
         <Preferences
-          //onSave={handleSave}
           availability={availability}
           onAvailabilityChange={handleAvailabilityChange}
         />
       </TabPanel>
-      {/* <TabPanel value={state.value} index={2}>
-        <Breakdown
-          assignments={
-            //   [{
-            //   className: "4HC3",
-            //   name: "Assignment 1",
-            //   worth: 3,
-            //   startDate: "12/03/20",
-            //   dueDate: "12/10/20",
-            //   dueTime: "11:59:00 PM",
-            //   estimatedHours: 10,
-            //   questions: [
-            //     {question: "Name", marks: 5},
-            //     {question: "Purpose", marks: 5},
-            //     {question: "Target User", marks: 5},
-            //     {question: "Tasks", marks: 25},
-            //     {question: "Sketches", marks: 30},
-            //     {question: "Layout", marks: 20},
-            //     {question: "Form", marks: 10},
-            //     ],
-            //   id: "1"
-            // }]
-            state.assignments
-          }
-          // monday={4}
-          // tuesday={3}
-          // wednesday={5}
-          // thursday={4}
-          // friday={3}
-          // saturday={3}
-          // sunday={0}
-          // bufferTime={2}
-          // minWorkTime={state.minWorkTime}
-          monday={state.monday}
-          tuesday={state.tuesday}
-          wednesday={state.wednesday}
-          thursday={state.thursday}
-          friday={state.friday}
-          saturday={state.saturday}
-          sunday={state.sunday}
-          bufferTime={state.bufferTime}
-          minWorkTime={state.minWorkTime}
-        />
-      </TabPanel> */}
+      <TabPanel value={tabValue} index={2}>
+        <Breakdown assignments={assignments} availability={availability} />
+      </TabPanel>
     </div>
   );
 };

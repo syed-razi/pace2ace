@@ -25,76 +25,7 @@ const useStyles = (theme) => ({
 });
 
 const Preferences = (props) => {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       monday: "",
-  //       tuesday: "",
-  //       wednesday: "",
-  //       thursday: "",
-  //       friday: "",
-  //       saturday: "",
-  //       sunday: "",
-  //       bufferTime: "",
-  //       minWorkTime: "",
-  //       open: false,
-  //     };
-  //   }
-
-   const [mondayHours, setMondayHours] = useState(0);
-//   const [tuesdayHours, setTuesdayHours] = useState("");
-//   const [wednesdayHours, setWednesdayHours] = useState("");
-//   const [thursdayHours, setThursdayHours] = useState("");
-//   const [fridayHours, setFridayHours] = useState("");
-//   const [saturdayHours, setSaturdayHours] = useState("");
-//   const [sundayHours, setSundayHours] = useState("");
-
-//   const [availability, setAvailability] = useState({
-//     monday: 0,
-//     tuesday: 0,
-//     wednesday: 0,
-//     thursday: 0,
-//     friday: 0,
-//     saturday: 0,
-//     sunday: 0,
-//   });
-
-  const mondayInputRef = useRef();
-  const tuesdayInputRef = useRef();
-  const wednesdayInputRef = useRef();
-  const thursdayInputRef = useRef();
-  const fridayInputRef = useRef();
-  const saturdayInputRef = useRef();
-  const sundayInputRef = useRef();
-
-//   const handleChange = (event) => {
-//     //this.setState({ [event.target.id]: event.target.value });
-//     setAvailability({
-//       ...availability,
-//       [event.target.id]: event.target.value,
-//     });
-//   };
-
-  const handleSave = (event) => {
-    event.preventDefault();
-    const availability = {
-        monday: mondayInputRef.current.value,
-        tuesday: tuesdayInputRef.current.value,
-        wednesday: wednesdayInputRef.current.value,
-        thursday: thursdayInputRef.current.value,
-        friday: fridayInputRef.current.value,
-        saturday: saturdayInputRef.current.value,
-        sunday: sundayInputRef.current.value,
-    };
-    console.log(availability);
-    props.onSave(availability);
-    //this.setState({ open: true });
-  };
-
-//   const handleClose = () => {
-//     this.setState({ open: false });
-//   };
-
+ 
   const { classes } = props;
 
   return (

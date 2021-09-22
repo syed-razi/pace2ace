@@ -69,14 +69,15 @@ const NewAssignmentForm = (props) => {
     if (enteredClass.length > 0) {
       const newAssignment = {
         id: enteredClass + enteredName,
-        class: enteredClass,
+        className: enteredClass,
         name: enteredName,
-        worth: enteredWorth,
+        worth: +enteredWorth,
         startDate: startDate,
         dueDate: dueDate,
-        estimatedHours: estimatedHours,
+        estimatedHours: +estimatedHours,
         questions: questions,
       };
+      console.log(newAssignment);
       props.onAddAssignment(newAssignment);
       props.onClose();
     }
