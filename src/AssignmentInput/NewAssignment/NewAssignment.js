@@ -46,8 +46,7 @@ const NewAssignment = (props) => {
           />
         )}
         {!isAddingAssignment && (
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
+          
               <Button
                 variant="contained"
                 startIcon={<AddIcon className={classes.addIcon} />}
@@ -55,8 +54,6 @@ const NewAssignment = (props) => {
               >
                 Add Assignment
               </Button>
-            </Paper>
-          </Grid>
         )}
       </Grid>
     </div>

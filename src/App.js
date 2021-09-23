@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import "./App.css";
 import NavBar from "./Navbar";
 import AssignmentInput from "./AssignmentInput/AssignmentInput";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import AvailabilityForm from "./AvailabilityForm/AvailabilityForm";
 import AssignmentBreakdown from "./AssignmentBreakdown/AssignmentBreakdown";
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#b71c1c',
+    },
+    secondary: {
+      main: '#424242',
+    },
+  },
+});
 
 const TabPanel = (props) => {
   //const { children, value, index, ...other } = props;
@@ -27,12 +37,12 @@ const useStyles = (theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-  },
+  }
 });
 
 const App = (props) => {
   const [assignments, setAssignments] = useState([]);
-  const [availability, setAvailability] = useState([0,0,0,0,0,0,0]);
+  const [availability, setAvailability] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tabValue, setTabValue] = useState(0);
 
   const handleAddAssignment = (assignment) => {
@@ -54,32 +64,35 @@ const App = (props) => {
   const { classes } = props;
 
   return (
-    <div className={classes.root}>
-      <NavBar />
-      <AppBar position="static">
-        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
-          <Tab label="Add Assignments" />
-          <Tab label="Set Availability" />
-          <Tab label="View Breakdown" />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={tabValue} index={0}>
-        <AssignmentInput
-          assignments={assignments}
-          onAddAssignment={handleAddAssignment}
-          onDelete={handleDeleteAssignment}
-        />
-      </TabPanel>
-      <TabPanel value={tabValue} index={1}>
-        <AvailabilityForm
-          availability={availability}
-          onAvailabilityChange={handleAvailabilityChange}
-        />
-      </TabPanel>
-      <TabPanel value={tabValue} index={2}>
-        <AssignmentBreakdown assignments={assignments} availability={availability} />
-      </TabPanel>
-    </div>
+    <ThemeProvider theme={theme}>
+        <NavBar />
+        <AppBar position="static">
+          <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
+            <Tab label="Add Assignments" />
+            <Tab label="Set Availability" />
+            <Tab label="View Breakdown" />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={tabValue} index={0}>
+          <AssignmentInput
+            assignments={assignments}
+            onAddAssignment={handleAddAssignment}
+            onDelete={handleDeleteAssignment}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <AvailabilityForm
+            availability={availability}
+            onAvailabilityChange={handleAvailabilityChange}
+          />
+        </TabPanel>
+        <TabPanel value={tabValue} index={2}>
+          <AssignmentBreakdown
+            assignments={assignments}
+            availability={availability}
+          />
+        </TabPanel>
+    </ThemeProvider>
   );
 };
 
