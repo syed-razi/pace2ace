@@ -2,7 +2,7 @@ import NewQuestion from "./NewQuestion";
 import QuestionsList from "./QuestionsList";
 import { Grid, Paper } from "@mui/material";
 import { withStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React from "react";
 
 const useStyles = (theme) => ({
   root: {

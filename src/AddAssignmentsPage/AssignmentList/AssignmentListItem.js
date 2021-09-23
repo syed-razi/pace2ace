@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  IconButton,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-} from "@mui/material";
+import React from "react";
+import { IconButton, ListItemText } from "@mui/material";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ListItem from "@mui/material/ListItem";
 
@@ -25,7 +20,10 @@ const AssignmentListItem = (props) => {
         </IconButton>
       }
     >
-      <ListItemText primary={assignment.className} secondary={assignment.name} />
+      <ListItemText
+        primary={assignment.className}
+        secondary={assignment.name}
+      />
     </ListItem>
   );
 };

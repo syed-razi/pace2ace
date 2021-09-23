@@ -15,7 +15,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
-import React, { Fragment } from "react";
+import React from "react";
 import AddQuestions from "./AddQuestions/AddQuestions";
 
 const useStyles = (theme) => ({
@@ -49,26 +49,11 @@ const NewAssignmentForm = (props) => {
 
   const { classes } = props;
 
-  // const handleAddQuestion = (question, marks, id) => {
-  //   setState({
-  //     questions: [
-  //       ...state.questions,
-  //       { question: question, marks: marks, id: id },
-  //     ],
-  //   });
-  // };
-
-  // const handleDeleteQuestion = (qID) => {
-  //   setState({
-  //     questions: state.questions.filter(({ id }) => id != qID),
-  //   });
-  // };
-
   const handleAddAssignment = (event) => {
     event.preventDefault();
     if (enteredClass.length > 0) {
       const newAssignment = {
-        id: enteredClass + enteredName,
+        id: enteredClass + enteredName + Math.random(),
         className: enteredClass,
         name: enteredName,
         worth: +enteredWorth,
@@ -77,7 +62,6 @@ const NewAssignmentForm = (props) => {
         estimatedHours: +estimatedHours,
         questions: questions,
       };
-      console.log(newAssignment);
       props.onAddAssignment(newAssignment);
       props.onClose();
     }

@@ -32,20 +32,13 @@ const useStyles = (theme) => ({
 
 const App = (props) => {
   const [assignments, setAssignments] = useState([]);
-  const [availability, setAvailability] = useState({
-    monday: 0,
-    tuesday: 0,
-    wednesday: 0,
-    thursday: 0,
-    friday: 0,
-    saturday: 0,
-    sunday: 0,
-  });
+  const [availability, setAvailability] = useState([0,0,0,0,0,0,0]);
   const [tabValue, setTabValue] = useState(0);
 
   const handleAddAssignment = (assignment) => {
+    // assignment = { ...assignment, breakdown: generateBreakdown(assignment.startDate, assignment.dueDate, estimatedHours) };
+    // console.log(assignment);
     setAssignments((prevAssignments) => [...prevAssignments, assignment]);
-    
   };
 
   const handleDeleteAssignment = (assignmentID) => {
@@ -55,8 +48,9 @@ const App = (props) => {
   };
 
   const handleAvailabilityChange = (id, newValue) => {
-    setAvailability({ ...availability, [id]: +newValue });
-    console.log(availability);
+    const updatedAvailability = [...availability];
+    updatedAvailability[+id] = +newValue;
+    setAvailability(updatedAvailability);
   };
 
   const { classes } = props;
