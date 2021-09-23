@@ -15,7 +15,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const NewQuestion = (props) => {
+const NewQuestionInput = (props) => {
   const [question, setQuestion] = useState("");
   const [marks, setMarks] = useState("");
   const [id, setId] = useState(0);
@@ -73,4 +73,4 @@ const NewQuestion = (props) => {
   );
 };
 
-export default withStyles(useStyles)(NewQuestion);
+export default withStyles(useStyles)(NewQuestionInput);

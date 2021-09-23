@@ -17,7 +17,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const AddAssignments = (props) => {
+const AssignmentInput = (props) => {
   const { classes } = props;
 
   return (
@@ -43,4 +43,4 @@ const AddAssignments = (props) => {
   );
 };
 
-export default withStyles(useStyles)(AddAssignments);
+export default withStyles(useStyles)(AssignmentInput);

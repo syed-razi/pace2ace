@@ -18,7 +18,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const Preferences = (props) => {
+const AvailabilityForm = (props) => {
   const { classes } = props;
 
   return (
@@ -122,4 +122,4 @@ const Preferences = (props) => {
   );
 };
 
-export default withStyles(useStyles)(Preferences);
+export default withStyles(useStyles)(AvailabilityForm);

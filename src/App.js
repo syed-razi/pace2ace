@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
 import NavBar from "./Navbar";
-import AddAssignments from "./AddAssignmentsPage/AddAssignments";
+import AssignmentInput from "./AssignmentInput/AssignmentInput";
 import { withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
-import Preferences from "./Preferences/Preferences";
-import Breakdown from "./Breakdown/Breakdown";
+import AvailabilityForm from "./AvailabilityForm/AvailabilityForm";
+import AssignmentBreakdown from "./AssignmentBreakdown/AssignmentBreakdown";
 
 const TabPanel = (props) => {
   //const { children, value, index, ...other } = props;
@@ -36,8 +36,6 @@ const App = (props) => {
   const [tabValue, setTabValue] = useState(0);
 
   const handleAddAssignment = (assignment) => {
-    // assignment = { ...assignment, breakdown: generateBreakdown(assignment.startDate, assignment.dueDate, estimatedHours) };
-    // console.log(assignment);
     setAssignments((prevAssignments) => [...prevAssignments, assignment]);
   };
 
@@ -61,25 +59,25 @@ const App = (props) => {
       <AppBar position="static">
         <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
           <Tab label="Add Assignments" />
-          <Tab label="Preferences" />
-          <Tab label="Breakdown" />
+          <Tab label="Set Availability" />
+          <Tab label="View Breakdown" />
         </Tabs>
       </AppBar>
       <TabPanel value={tabValue} index={0}>
-        <AddAssignments
+        <AssignmentInput
           assignments={assignments}
           onAddAssignment={handleAddAssignment}
           onDelete={handleDeleteAssignment}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <Preferences
+        <AvailabilityForm
           availability={availability}
           onAvailabilityChange={handleAvailabilityChange}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <Breakdown assignments={assignments} availability={availability} />
+        <AssignmentBreakdown assignments={assignments} availability={availability} />
       </TabPanel>
     </div>
   );

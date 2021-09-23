@@ -1,4 +1,4 @@
-import NewQuestion from "./NewQuestion";
+import NewQuestionInput from "./NewQuestionInput";
 import QuestionsList from "./QuestionsList";
 import { Grid, Paper } from "@mui/material";
 import { withStyles } from "@material-ui/core/styles";
@@ -23,7 +23,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const AddQuestions = (props) => {
+const NewAssignmentQuestionsInput = (props) => {
   
 
   const { classes } = props;
@@ -40,11 +40,11 @@ const AddQuestions = (props) => {
       </Grid>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
-          <NewQuestion onAddQuestion={props.onAddQuestion} />
+          <NewQuestionInput onAddQuestion={props.onAddQuestion} />
         </Paper>
       </Grid>
     </div>
   );
 };
 
-export default withStyles(useStyles)(AddQuestions);
+export default withStyles(useStyles)(NewAssignmentQuestionsInput);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper, Grid, Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import NewAssignmentForm from "./NewAssignmentForm";
+import NewAssignmentForm from "./NewAssignmentForm/NewAssignmentForm";
 
 const useStyles = (theme) => ({
   root: {

@@ -16,7 +16,7 @@ import { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import React from "react";
-import AddQuestions from "./AddQuestions/AddQuestions";
+import NewAssignmentQuestionsInput from "./NewAssignmentQuestionsInput/NewAssignmentQuestionsInput";
 
 const useStyles = (theme) => ({
   root: {
@@ -80,7 +80,7 @@ const NewAssignmentForm = (props) => {
   return (
     <div className="root">
       {isAddingQuestions && (
-        <AddQuestions
+        <NewAssignmentQuestionsInput
           onAddQuestion={handleAddQuestion}
           onDeleteQuestion={handleDeleteQuestion}
           questions={questions}

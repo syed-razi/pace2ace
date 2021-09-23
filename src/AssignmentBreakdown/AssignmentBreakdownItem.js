@@ -21,7 +21,7 @@ const useStyles = (theme) => ({
   },
 });
 
-const BreakdownItem = (props) => {
+const AssignmentBreakdownItem = (props) => {
   const { classes } = props;
 
   const getTotalFreeHours = (startDate, dueDate, availability) => {
@@ -146,4 +146,4 @@ const BreakdownItem = (props) => {
   );
 };
 
-export default withStyles(useStyles)(BreakdownItem);
+export default withStyles(useStyles)(AssignmentBreakdownItem);

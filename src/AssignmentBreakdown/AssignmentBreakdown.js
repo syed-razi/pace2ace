@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import BreakdownItem from "./BreakdownItem";
+import AssignmentBreakdownItem from "./AssignmentBreakdownItem";
 
 const useStyles = (theme) => ({
   root: {},
@@ -9,14 +9,14 @@ const useStyles = (theme) => ({
   },
 });
 
-const Breakdown = (props) => {
+const AssignmentBreakdown = (props) => {
   const { classes } = props;
 
   return (
     <div className={classes.root}>
       <div>
         {props.assignments.map((assignment) => (
-          <BreakdownItem
+          <AssignmentBreakdownItem
             key={assignment.id}
             assignment={assignment}
             availability={props.availability}
@@ -27,4 +27,4 @@ const Breakdown = (props) => {
   );
 };
 
-export default withStyles(useStyles)(Breakdown);
+export default withStyles(useStyles)(AssignmentBreakdown);
