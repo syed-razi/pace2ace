@@ -13,100 +13,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import _ from "lodash";
-
-// id: enteredClass + enteredName,
-//         class: enteredClass,
-//         name: enteredName,
-//         worth: +enteredWorth,
-//         startDate: startDate,
-//         dueDate: dueDate,
-//         estimatedHours: +estimatedHours,
-//         questions: questions,
-
-// function getRows(
-//   startDate,
-//   dueDate,
-//   dueTime,
-//   estimatedHours,
-//   questions,
-//   monday,
-//   tuesday,
-//   wednesday,
-//   thursday,
-//   friday,
-//   saturday,
-//   sunday,
-//   bufferTime
-// ) {
-//   var datesArray = getDatesArray(startDate, dueDate, dueTime);
-
-//   var timeAvailable = 0;
-//   var totalHours = 0; //monday + tuesday + wednesday + thursday + friday + saturday + sunday;
-
-//   for (var i = 0; i < datesArray.length; i++) {
-//     switch (datesArray[i].getDay()) {
-//       case 0:
-//         timeAvailable = sunday;
-//         break;
-//       case 1:
-//         timeAvailable = monday;
-//         break;
-//       case 2:
-//         timeAvailable = tuesday;
-//         break;
-//       case 3:
-//         timeAvailable = wednesday;
-//         break;
-//       case 4:
-//         timeAvailable = thursday;
-//         break;
-//       case 5:
-//         timeAvailable = friday;
-//         break;
-//       case 6:
-//         timeAvailable = saturday;
-//         break;
-//       default:
-//       // do nothing
-//     }
-//     totalHours += timeAvailable;
-//   }
-
-//   var questionsArray = getQuestionsArray(
-//     questions,
-//     datesArray,
-//     monday,
-//     tuesday,
-//     wednesday,
-//     thursday,
-//     friday,
-//     saturday,
-//     sunday,
-//     bufferTime,
-//     totalHours
-//   );
-
-//   var timesArray = getTimesArray(
-//     estimatedHours,
-//     datesArray,
-//     monday,
-//     tuesday,
-//     wednesday,
-//     thursday,
-//     friday,
-//     saturday,
-//     sunday,
-//     bufferTime,
-//     totalHours
-//   );
-
-//   var data = [];
-//   for (var i = 0; i < datesArray.length; i++) {
-//     data.push(createData(datesArray[i], questionsArray[i], timesArray[i]));
-//   }
-//   return data;
-// }
 
 const useStyles = (theme) => ({
   root: {},
@@ -117,28 +23,98 @@ const useStyles = (theme) => ({
 
 const BreakdownItem = (props) => {
   const { classes } = props;
-  const {
-    id,
-    className,
-    name,
-    worth,
-    startDate,
-    dueDate,
-    estimatedHours,
-    questions,
-  } = props.assignment;
+
+  const getTotalFreeHours = (startDate, dueDate, availability) => {
+    var totalTime = 0;
+
+    for (
+      var d = new Date(startDate.getTime());
+      d <= dueDate;
+      d.setDate(d.getDate() + 1)
+    ) {
+      const date = new Date(d);
+      totalTime += availability[date.getDay()];
+    }
+
+    return totalTime;
+  };
+
+  const getTotalMarks = (questions, marks) =>
+    questions.reduce((total, question) => total + question[marks], 0);
+
+  const getBreakdown = (assignment, availability) => {
+    let breakdown = [];
+    const { startDate, dueDate, estimatedHours, questions } = assignment;
+
+    const totalFreeHours = getTotalFreeHours(startDate, dueDate, availability);
+    const totalMarks = getTotalMarks(questions, "marks");
+    let totalMarksLeft = totalMarks;
+    let questionIndex = 0;
+    let marksCompletedOfCurrQuestion = 0;
+
+    for (
+      var d = new Date(startDate.getTime());
+      d <= dueDate && totalMarksLeft > 0;
+      d.setDate(d.getDate() + 1)
+    ) {
+      const date = new Date(d);
+      const todayFreeHours = availability[date.getDay()];
+      const fractionOfWork = todayFreeHours / totalFreeHours;
+      const hoursToDoToday = fractionOfWork * estimatedHours;
+      let marksToDoToday = fractionOfWork * totalMarks;
+      totalMarksLeft -= marksToDoToday;
+      let todo = [];
+
+      for (; questionIndex < questions.length; ) {
+        let marksToDoOfCurrQuestion =
+          questions[questionIndex].marks - marksCompletedOfCurrQuestion;
+        if (marksToDoToday >= marksToDoOfCurrQuestion) {
+          marksToDoToday -= marksToDoOfCurrQuestion;
+          todo.push("finish " + questions[questionIndex++].question);
+          marksCompletedOfCurrQuestion = 0;
+        } else if (marksCompletedOfCurrQuestion > 0) {
+          //already started on the question earlier
+          marksCompletedOfCurrQuestion += marksToDoToday;
+          todo.push("continue " + questions[questionIndex].question);
+          break;
+        } else {
+          marksCompletedOfCurrQuestion = marksToDoToday;
+          todo.push("start " + questions[questionIndex].question);
+          break;
+        }
+      }
+
+      breakdown.push({
+        day: date,
+        todo: todo,
+        estimatedHours: hoursToDoToday,
+      });
+    }
+
+    return breakdown;
+  };
+
+  const breakdown = getBreakdown(props.assignment, props.availability);
+
+  const formatTime = (decimal) => {
+    let d = new Date(0, 0);
+    d.setSeconds(decimal * 60 * 60);
+    return d.toTimeString().slice(0, 8);
+  };
 
   return (
-    <Accordion key={id}>
+    <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Grid container justify="space-around" alignItems="center">
           <Grid item>
             <Typography className={classes.heading}>
-              Class: {className}
+              Class: {props.assignment.className}
             </Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.heading}>Name: {name}</Typography>
+            <Typography className={classes.heading}>
+              Name: {props.assignment.name}
+            </Typography>
           </Grid>
         </Grid>
       </AccordionSummary>
@@ -148,39 +124,23 @@ const BreakdownItem = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
-                 {/* <TableCell>Questions/ Sections to Complete</TableCell> */}
+                <TableCell>Questions/ Sections to Complete</TableCell>
                 <TableCell>Estimated Time Required (Hrs)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              { /* {getRows(
-                startDate,
-                dueDate,
-                dueTime,
-                estimatedHours,
-                questions,
-                this.props.monday,
-                this.props.tuesday,
-                this.props.wednesday,
-                this.props.thursday,
-                this.props.friday,
-                this.props.saturday,
-                this.props.sunday,
-                this.props.bufferTime
-              ).map((row) => (
-                <TableRow>
+              {breakdown.map((row) => (
+                <TableRow key={Math.random()}>
                   <TableCell component="th" scope="row">
-                    {row.date.toLocaleString("en-CA", {
-                      dateStyle: "full",
-                    })}
+                    {row.day.toDateString()}
                   </TableCell>
-                  <TableCell>{row.questions}</TableCell>
-                  <TableCell>{row.time}</TableCell>
+                  <TableCell>{row.todo.join(", ")}</TableCell>
+                  <TableCell>{formatTime(row.estimatedHours)}</TableCell>
                 </TableRow>
-              ))}*/}
-            </TableBody> 
+              ))}
+            </TableBody>
           </Table>
-        </TableContainer> 
+        </TableContainer>
       </AccordionDetails>
     </Accordion>
   );
