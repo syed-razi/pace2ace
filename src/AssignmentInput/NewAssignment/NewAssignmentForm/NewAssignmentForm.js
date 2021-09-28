@@ -1,10 +1,4 @@
-import {
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Stack,
-} from "@mui/material";
+import { TextField, Button, Typography, Stack, Box } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { LocalizationProvider } from "@mui/lab";
 import { DatePicker, TimePicker } from "@mui/lab";
@@ -52,35 +46,95 @@ const NewAssignmentForm = (props) => {
   };
 
   return (
-    <Grid item container direction="column" alignItems="center">
-      <Grid item>
-        <Typography variant="h6" gutterBottom>
-          Enter Assignment Details Below
-        </Typography>
-      </Grid>
-      <Grid
-        item
-        sx={{
-          width: { xs: 350, sm: 400, md: 500, lg: 600, xl: 700 },
-        }}
-      >
+    <Stack
+      alignItems="center"
+      spacing={3}
+      sx={{
+        width: { xs: 350, sm: 400, md: 500, lg: 600, xl: 700 },
+      }}
+    >
+      <Typography variant="h6" gutterBottom>
+        Enter Assignment Details Below
+      </Typography>
+      <Box sx={{ width: "100%" }}>
         <form noValidate autoComplete="off">
-          <Stack spacing={3}>
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Class"
-              value={enteredClass}
-              onChange={(e) => setEnteredClass(e.target.value)}
-            />
-
-            <TextField
-              fullWidth
-              id="standard-basic"
-              label="Assignment Name"
-              value={enteredName}
-              onChange={(e) => setEnteredName(e.target.value)}
-            />
+          <Stack alignItems="center" spacing={3} sx={{ width: "100%" }}>
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={3}
+              sx={{ width: "100%" }}
+            >
+              <TextField
+                fullWidth
+                id="standard-basic"
+                label="Class"
+                value={enteredClass}
+                onChange={(e) => setEnteredClass(e.target.value)}
+              />
+              <TextField
+                fullWidth
+                id="standard-basic"
+                label="Assignment Name"
+                value={enteredName}
+                onChange={(e) => setEnteredName(e.target.value)}
+              />
+            </Stack>
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={3}
+              sx={{ width: "100%" }}
+              justifyContent="center"
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Start Date"
+                  inputFormat="MM/dd/yyyy"
+                  value={startDate}
+                  onChange={(newStartDate) => setStartDate(newStartDate)}
+                  renderInput={(params) => (
+                    <TextField sx={{ width: "100%" }} {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Due Date"
+                  inputFormat="MM/dd/yyyy"
+                  value={dueDate}
+                  onChange={(newDueDate) => setDueDate(newDueDate)}
+                  renderInput={(params) => (
+                    <TextField sx={{ width: "100%" }} {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+            </Stack>
+            <Stack
+              direction={{ xs: "column", md: "row" }}
+              spacing={3}
+              sx={{ width: "100%" }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <TimePicker
+                  label="Due Time"
+                  value={dueDate}
+                  onChange={(newDueDate) => setDueDate(newDueDate)}
+                  renderInput={(params) => (
+                    <TextField sx={{ width: "100%" }} {...params} />
+                  )}
+                />
+              </LocalizationProvider>
+              <TextField
+                fullWidth
+                id="standard-number"
+                label="Estimated Hours"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={estimatedHours}
+                onChange={(e) => setEstimatedHours(e.target.value)}
+              />
+            </Stack>
             {/* <TextField
               id="standard-number"
               label="% Worth"
@@ -91,41 +145,6 @@ const NewAssignmentForm = (props) => {
               value={enteredWorth}
               onChange={(e) => setEnteredWorth(e.target.value)}
             /> */}
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <Stack spacing={3}>
-                <DatePicker
-                  label="Start Date"
-                  inputFormat="MM/dd/yyyy"
-                  value={startDate}
-                  onChange={(newStartDate) => setStartDate(newStartDate)}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                <DatePicker
-                  label="Due Date"
-                  inputFormat="MM/dd/yyyy"
-                  value={dueDate}
-                  onChange={(newDueDate) => setDueDate(newDueDate)}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                <TimePicker
-                  label="Due Time"
-                  value={dueDate}
-                  onChange={(newDueDate) => setDueDate(newDueDate)}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </Stack>
-            </LocalizationProvider>
-            <TextField
-              fullWidth
-              id="standard-number"
-              label="Estimated Hours"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value={estimatedHours}
-              onChange={(e) => setEstimatedHours(e.target.value)}
-            />
             {isAddingQuestions && (
               <NewAssignmentQuestionsInput
                 onAddQuestion={handleAddQuestion}
@@ -133,32 +152,36 @@ const NewAssignmentForm = (props) => {
                 questions={questions}
               />
             )}
-            <Stack sx={{ width: "50%", alignSelf: "center" }} spacing={3}>
-              {!isAddingQuestions && (
-                <Button
-                  variant="outlined"
-                  startIcon={<AddIcon />}
-                  onClick={() => setIsAddingQuestions(true)}
-                >
-                  Add Questions
-                </Button>
-              )}
+            {!isAddingQuestions && (
               <Button
-                variant="contained"
+                sx={{ width: { xs: "90%", md: "50%" } }}
+                variant="outlined"
                 startIcon={<AddIcon />}
-                onClick={handleAddAssignment}
-                type="submit"
+                onClick={() => setIsAddingQuestions(true)}
               >
-                Add Assignment
+                Add Questions
               </Button>
-              <Button variant="contained" onClick={props.onClose}>
-                Close
-              </Button>
-            </Stack>
+            )}
+            <Button
+              sx={{ width: { xs: "90%", md: "50%" } }}
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleAddAssignment}
+              type="submit"
+            >
+              Add Assignment
+            </Button>
+            <Button
+              sx={{ width: { xs: "90%", md: "50%" } }}
+              variant="contained"
+              onClick={props.onClose}
+            >
+              Close
+            </Button>
           </Stack>
         </form>
-      </Grid>
-    </Grid>
+      </Box>
+    </Stack>
   );
 };
 

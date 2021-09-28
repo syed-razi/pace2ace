@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const QuestionsList = (props) => {
   return (
-      <List sx={{width: {xs: "100%", md: "80%", lg: "70%"}}}>
+      <List sx={{width: {xs: "100%"}}}>
         {props.questions.map(({ question, marks, id }) => (
           <ListItem divider key={id}>
             <ListItemText primary={question} secondary={marks + " marks"} />

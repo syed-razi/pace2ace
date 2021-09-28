@@ -30,7 +30,7 @@ const NewQuestionInput = (props) => {
 
   return (
     <form noValidate autoComplete="off">
-      <Stack direction="row" spacing={2} alignItems="center">
+      <Stack direction="row" spacing={2} >
         <TextField
           id="standard-basic"
           label="Question"
