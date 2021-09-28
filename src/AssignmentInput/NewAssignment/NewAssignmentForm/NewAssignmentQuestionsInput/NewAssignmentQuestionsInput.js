@@ -1,50 +1,21 @@
 import NewQuestionInput from "./NewQuestionInput";
 import QuestionsList from "./QuestionsList";
-import { Grid, Paper } from "@mui/material";
-import { withStyles } from "@material-ui/core/styles";
+import { Typography, Stack } from "@mui/material";
 import React from "react";
 
-const useStyles = (theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-  },
-  form: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-  addIcon: {
-    padding: theme.spacing(1),
-  },
-});
-
 const NewAssignmentQuestionsInput = (props) => {
-  
-
-  const { classes } = props;
-
   return (
-    <div className={classes.root}>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <QuestionsList
-            questions={props.questions}
-            onDeleteQuestion={props.onDeleteQuestion}
-          />
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <NewQuestionInput onAddQuestion={props.onAddQuestion} />
-        </Paper>
-      </Grid>
-    </div>
+    <Stack alignItems="center" spacing={3}>
+      <Typography variant="h6" gutterBottom>
+        Enter Question Details Below To Add a Question
+      </Typography>
+      {props.questions.length > 0 && <QuestionsList
+        questions={props.questions}
+        onDeleteQuestion={props.onDeleteQuestion}
+      />}
+      <NewQuestionInput onAddQuestion={props.onAddQuestion} />
+    </Stack>
   );
 };
 
-export default withStyles(useStyles)(NewAssignmentQuestionsInput);
+export default NewAssignmentQuestionsInput;

@@ -1,32 +1,10 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Button } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { Grid, Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import NewAssignmentForm from "./NewAssignmentForm/NewAssignmentForm";
-
-const useStyles = (theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-  },
-  form: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-  addIcon: {
-    padding: theme.spacing(1),
-  },
-});
 
 const NewAssignment = (props) => {
   const [isAddingAssignment, setIsAddingAssignment] = useState(false);
-
-  const { classes } = props;
 
   const openAddAssignmentForm = () => {
     setIsAddingAssignment(true);
@@ -37,27 +15,33 @@ const NewAssignment = (props) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        {isAddingAssignment && (
-          <NewAssignmentForm
-            onClose={closeAddAssignmentForm}
-            onAddAssignment={props.onAddAssignment}
-          />
-        )}
-        {!isAddingAssignment && (
-          
-              <Button
-                variant="contained"
-                startIcon={<AddIcon className={classes.addIcon} />}
-                onClick={openAddAssignmentForm}
-              >
-                Add Assignment
-              </Button>
-        )}
-      </Grid>
-    </div>
+    <Grid
+      item
+      container
+      direction="column"
+      alignItems="center"
+    >
+      {isAddingAssignment && (
+        <NewAssignmentForm
+          onClose={closeAddAssignmentForm}
+          onAddAssignment={props.onAddAssignment}
+        />
+      )}
+
+      {!isAddingAssignment && (
+        <Grid item>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={openAddAssignmentForm}
+            size="large"
+          >
+            Add Assignment
+          </Button>
+        </Grid>
+      )}
+    </Grid>
   );
 };
 
-export default withStyles(useStyles)(NewAssignment);
+export default NewAssignment;

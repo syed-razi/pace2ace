@@ -1,29 +1,21 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Grid from "@material-ui/core/Grid";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-
-const useStyles = (theme) => ({
-  root: {},
-  table: {
-    minWidth: 650,
-  },
-});
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const AssignmentBreakdownItem = (props) => {
-  const { classes } = props;
-
   const getTotalFreeHours = (startDate, dueDate, availability) => {
     var totalTime = 0;
 
@@ -105,22 +97,18 @@ const AssignmentBreakdownItem = (props) => {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Grid container justify="space-around" alignItems="center">
+        <Grid container justifyContent="space-around" alignItems="center">
           <Grid item>
-            <Typography className={classes.heading}>
-              Class: {props.assignment.className}
-            </Typography>
+            <Typography>Class: {props.assignment.className}</Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.heading}>
-              Name: {props.assignment.name}
-            </Typography>
+            <Typography>Name: {props.assignment.name}</Typography>
           </Grid>
         </Grid>
       </AccordionSummary>
       <AccordionDetails>
         <TableContainer component={Paper}>
-          <Table className={classes.table}>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
@@ -146,4 +134,4 @@ const AssignmentBreakdownItem = (props) => {
   );
 };
 
-export default withStyles(useStyles)(AssignmentBreakdownItem);
+export default AssignmentBreakdownItem;

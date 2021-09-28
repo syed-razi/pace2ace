@@ -1,30 +1,40 @@
 import React from "react";
-import { IconButton, ListItemText } from "@mui/material";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ListItem from "@mui/material/ListItem";
+import { IconButton, ListItemText, ListItem, Paper } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 
 const AssignmentListItem = (props) => {
   const { assignment } = props;
 
   return (
-    <ListItem
-      secondaryAction={
+    <Paper elevation={3}>
+      <ListItem>
+        <ListItemText
+          primary={assignment.className}
+          secondary={assignment.name}
+        />
+        <IconButton
+          edge="end"
+          aria-label="edit"
+          onClick={() => {
+            props.onDelete(assignment.id);
+          }}
+          size="large"
+        >
+          <EditIcon />
+        </IconButton>
         <IconButton
           edge="end"
           aria-label="delete"
           onClick={() => {
             props.onDelete(assignment.id);
           }}
+          size="large"
         >
-          <DeleteIcon />
+          <Delete />
         </IconButton>
-      }
-    >
-      <ListItemText
-        primary={assignment.className}
-        secondary={assignment.name}
-      />
-    </ListItem>
+      </ListItem>
+    </Paper>
   );
 };
 

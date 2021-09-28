@@ -1,41 +1,33 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { withStyles, styled } from "@material-ui/core/styles";
-import { List } from "@material-ui/core";
+import { Typography, List, Grid, Box, Stack } from "@mui/material";
 import AssignmentListItem from "./AssignmentListItem";
 
-const useStyles = (theme) => ({
-  root: {},
-  button: {
-    margin: theme.spacing(1),
-  },
-});
-
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
-
 const AssignmentDetails = (props) => {
-  const { classes } = props;
-
   return (
-    <div className={classes.root}>
+    <Grid item container direction="column" alignItems="center">
       <Typography variant="h6" gutterBottom>
         Assignments
       </Typography>
-      <Demo>
-        <List>
-          {props.assignments.map((assignment) => (
-            <AssignmentListItem
-              key={assignment.id}
-              assignment={assignment}
-              onDelete={props.onDelete}
-            />
-          ))}
+      <Box
+        sx={{
+          width: { xs: 350, sm: 400, md: 500, lg: 600, xl: 700 },
+          bgcolor: "background.paper",
+        }}
+      >
+        <List component="assignment-list" aria-label="list of assignments">
+          <Stack spacing={1}>
+            {props.assignments.map((assignment) => (
+              <AssignmentListItem
+                key={assignment.id}
+                assignment={assignment}
+                onDelete={props.onDelete}
+              />
+            ))}
+          </Stack>
         </List>
-      </Demo>
-    </div>
+      </Box>
+    </Grid>
   );
 };
 
-export default withStyles(useStyles)(AssignmentDetails);
+export default AssignmentDetails;
