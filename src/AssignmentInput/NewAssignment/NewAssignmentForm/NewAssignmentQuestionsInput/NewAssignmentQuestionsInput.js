@@ -15,7 +15,11 @@ const NewAssignmentQuestionsInput = (props) => {
           onDeleteQuestion={props.onDeleteQuestion}
         />
       )}
-      <NewQuestionInput onAddQuestion={props.onAddQuestion} />
+      <NewQuestionInput
+        onAddQuestion={props.onAddQuestion}
+        onQuestionInput={props.onQuestionInput}
+        question={props.question}
+      />
     </>
   );
 };

@@ -16,6 +16,11 @@ const NewAssignmentForm = (props) => {
   const [estimatedHours, setEstimatedHours] = useState("");
   const [isAddingQuestions, setIsAddingQuestions] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [question, setQuestion] = useState(1);
+
+  const handleQuestionInput = (e) => {
+    setQuestion(e.target.value);
+  };
 
   const handleAddAssignment = (event) => {
     event.preventDefault();
@@ -35,14 +40,25 @@ const NewAssignmentForm = (props) => {
     }
   };
 
-  const handleAddQuestion = (question) => {
-    setQuestions((prevQuestions) => [...prevQuestions, question]);
+  const setNextQuestion = () => {
+    if (!isNaN(question)) {
+      setQuestion((prevQuestion) => +prevQuestion + 1);
+    }
+  };
+
+  const handleAddQuestion = (newQuestion) => {
+    setQuestions((prevQuestions) => [
+      ...prevQuestions,
+      { question: question, ...newQuestion },
+    ]);
+    setNextQuestion();
   };
 
   const handleDeleteQuestion = (questionId) => {
     setQuestions((prevQuestions) =>
       prevQuestions.filter((question) => question.id !== questionId)
     );
+    setQuestion(questions[questions.length - 1].question);
   };
 
   return (
@@ -147,6 +163,8 @@ const NewAssignmentForm = (props) => {
             /> */}
             {isAddingQuestions && (
               <NewAssignmentQuestionsInput
+                onQuestionInput={handleQuestionInput}
+                question={question}
                 onAddQuestion={handleAddQuestion}
                 onDeleteQuestion={handleDeleteQuestion}
                 questions={questions}

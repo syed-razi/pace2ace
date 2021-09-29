@@ -3,39 +3,46 @@ import { TextField, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 const NewQuestionInput = (props) => {
-  const [question, setQuestion] = useState("");
+  //const [question, setQuestion] = useState(1);
   const [marks, setMarks] = useState("");
   const [id, setId] = useState(0);
 
-  const handleQuestionInput = (e) => {
-    setQuestion(e.target.value);
-  };
+  // const handleQuestionInput = (e) => {
+  //   setQuestion(e.target.value);
+  // };
 
   const handleMarksInput = (e) => {
     setMarks(+e.target.value);
   };
+  
+  // const handleSetQuestion = (question) => {
+  //   if (!isNaN(question)) {
+  //     return +question + 1;
+  //   }
+  //   return question;
+  // };
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const questionData = {
-      question: question,
+      //question: question,
       marks: marks,
       id: id,
     };
     props.onAddQuestion(questionData);
-    setQuestion("");
+    //setQuestion(handleSetQuestion(question));
     setMarks("");
     setId((prevId) => prevId + 1);
   };
 
   return (
     <form noValidate autoComplete="off">
-      <Stack direction="row" spacing={2} >
+      <Stack direction="row" spacing={2}>
         <TextField
           id="standard-basic"
           label="Question"
-          onChange={handleQuestionInput}
-          value={question}
+          onChange={props.onQuestionInput}
+          value={props.question}
         />
         <TextField
           id="standard-number"
