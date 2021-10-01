@@ -6,11 +6,23 @@ import { Grid } from "@mui/material";
 const AssignmentInput = (props) => {
   return (
     <Grid container direction="column" alignItems="center" spacing={10}>
-      <NewAssignment onAddAssignment={props.onAddAssignment} />
+      <NewAssignment
+        onAddAssignment={props.onAddAssignment}
+        onSaveAssignment={props.onSaveAssignment}
+        isEditingAssignment={props.isEditingAssignment}
+        assignmentToEdit={props.assignmentToEdit}
+        assignment={props.assignment}
+        assignmentChangeHandlers={props.assignmentChangeHandlers}
+        clearAssignmentInput={props.clearAssignmentInput}
+        onAddQuestion={props.onAddQuestion}
+        onDeleteQuestion={props.onDeleteQuestion}
+        onCloseEdit={props.onCloseEdit}
+      />
       {props.assignments.length > 0 && (
         <AssignmentList
           assignments={props.assignments}
           onDelete={props.onDelete}
+          onEdit={props.onEdit}
         />
       )}
     </Grid>

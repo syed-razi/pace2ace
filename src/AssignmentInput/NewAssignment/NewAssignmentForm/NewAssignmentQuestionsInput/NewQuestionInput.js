@@ -1,38 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 const NewQuestionInput = (props) => {
-  //const [question, setQuestion] = useState(1);
+  const [question, setQuestion] = useState(props.question);
   const [marks, setMarks] = useState("");
-  const [id, setId] = useState(0);
 
-  // const handleQuestionInput = (e) => {
-  //   setQuestion(e.target.value);
-  // };
-
-  const handleMarksInput = (e) => {
-    setMarks(+e.target.value);
-  };
-  
-  // const handleSetQuestion = (question) => {
-  //   if (!isNaN(question)) {
-  //     return +question + 1;
-  //   }
-  //   return question;
-  // };
+  useEffect(() => {
+    setQuestion(props.question);
+  }, [props.question]);
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const questionData = {
-      //question: question,
+      question: question,
       marks: marks,
-      id: id,
     };
     props.onAddQuestion(questionData);
-    //setQuestion(handleSetQuestion(question));
     setMarks("");
-    setId((prevId) => prevId + 1);
   };
 
   return (
@@ -41,8 +26,8 @@ const NewQuestionInput = (props) => {
         <TextField
           id="standard-basic"
           label="Question"
-          onChange={props.onQuestionInput}
-          value={props.question}
+          onChange={(e) => setQuestion(e.target.value)}
+          value={question}
         />
         <TextField
           id="standard-number"
@@ -52,7 +37,7 @@ const NewQuestionInput = (props) => {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleMarksInput}
+          onChange={(e) => setMarks(+e.target.value)}
         />
         <Button
           variant="contained"

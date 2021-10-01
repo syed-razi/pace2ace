@@ -37,18 +37,95 @@ const theme = createTheme({
 });
 
 const App = () => {
+  const [assignment, setAssignment] = useState({
+    className: "",
+    name: "",
+    startDate: new Date(),
+    dueDate: new Date().setHours(23, 59, 59),
+    estimatedHours: "",
+    questions: [],
+  });
   const [assignments, setAssignments] = useState([]);
+  const [isEditingAssignment, setIsEditingAssignment] = useState(false);
   const [availability, setAvailability] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tabValue, setTabValue] = useState(0);
 
-  const handleAddAssignment = (assignment) => {
-    setAssignments((prevAssignments) => [...prevAssignments, assignment]);
+  const handleChangeClass = (updatedClass) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.className = updatedClass;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeName = (updatedName) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.name = updatedName;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeStartDate = (updatedStartDate) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.startDate = updatedStartDate;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeDueDate = (updatedDueDate) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.dueDate = updatedDueDate;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeEstimatedHours = (updatedEstimatedHours) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.estimatedHours = updatedEstimatedHours;
+    setAssignment(updatedAssignment);
+  };
+
+  const assignmentChangeHandlers = {
+    onChangeClass: handleChangeClass,
+    onChangeName: handleChangeName,
+    onChangeStartDate: handleChangeStartDate,
+    onChangeDueDate: handleChangeDueDate,
+    onChangeEstimatedHours: handleChangeEstimatedHours,
+  };
+
+  const handleAddAssignment = () => {
+    const newAssignment = {
+      id: assignment.className + assignment.name + Math.random(),
+      className: assignment.className,
+      name: assignment.name,
+      startDate: assignment.startDate,
+      dueDate: assignment.dueDate,
+      estimatedHours: +assignment.estimatedHours,
+      questions: assignment.questions,
+    };
+    setAssignments((prevAssignments) => [...prevAssignments, newAssignment]);
+  };
+
+  const handleSaveAssignment = () => {
+    const assignmentIndex = assignments.findIndex(
+      (a) => a.id === assignment.id
+    );
+    const updatedAssignments = [...assignments];
+    updatedAssignments[assignmentIndex] = assignment;
+    setAssignments(updatedAssignments);
   };
 
   const handleDeleteAssignment = (assignmentID) => {
     setAssignments((prevAssignments) =>
       prevAssignments.filter((assignment) => assignment.id !== assignmentID)
     );
+  };
+
+  const handleEditAssignment = (assignmentID) => {
+    const assignmentToEdit = assignments.filter(
+      (assignment) => assignment.id === assignmentID
+    )[0];
+    setAssignment(assignmentToEdit);
+    setIsEditingAssignment(true);
+  };
+
+  const handleCloseEdit = () => {
+    setIsEditingAssignment(false);
   };
 
   const handleAvailabilityChange = (id, newValue) => {
@@ -61,6 +138,48 @@ const App = () => {
     setTabValue(value);
   };
 
+  const clearAssignmentInput = () => {
+    setAssignment({
+      className: "",
+      name: "",
+      startDate: new Date(),
+      dueDate: new Date().setHours(23, 59, 59),
+      estimatedHours: "",
+      questions: [],
+    });
+  };
+
+  const handleAddQuestion = (newQuestion) => {
+    const question = {
+      question: newQuestion.question,
+      marks: newQuestion.marks,
+      id:
+        assignment.className +
+        assignment.name +
+        (assignment.questions.length + 1),
+    };
+
+    const updatedQuestions = [...assignment.questions, question];
+
+    const updatedAssignment = { ...assignment };
+
+    updatedAssignment.questions = updatedQuestions;
+
+    setAssignment(updatedAssignment);
+  };
+
+  const handleDeleteQuestion = (questionId) => {
+    const updatedQuestions = assignment.questions.filter(
+      (question) => question.id !== questionId
+    );
+
+    const updatedAssignment = { ...assignment };
+
+    updatedAssignment.questions = updatedQuestions;
+
+    setAssignment(updatedAssignment);
+  };
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -71,7 +190,16 @@ const App = () => {
             <AssignmentInput
               assignments={assignments}
               onAddAssignment={handleAddAssignment}
+              onSaveAssignment={handleSaveAssignment}
               onDelete={handleDeleteAssignment}
+              onEdit={handleEditAssignment}
+              isEditingAssignment={isEditingAssignment}
+              assignment={assignment}
+              assignmentChangeHandlers={assignmentChangeHandlers}
+              clearAssignmentInput={clearAssignmentInput}
+              onAddQuestion={handleAddQuestion}
+              onDeleteQuestion={handleDeleteQuestion}
+              onCloseEdit={handleCloseEdit}
             />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>

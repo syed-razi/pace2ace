@@ -21,6 +21,7 @@ const AssignmentDetails = (props) => {
                 key={assignment.id}
                 assignment={assignment}
                 onDelete={props.onDelete}
+                onEdit={props.onEdit}
               />
             ))}
           </Stack>

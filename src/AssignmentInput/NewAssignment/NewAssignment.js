@@ -7,11 +7,13 @@ const NewAssignment = (props) => {
   const [isAddingAssignment, setIsAddingAssignment] = useState(false);
 
   const openAddAssignmentForm = () => {
+    props.clearAssignmentInput();
     setIsAddingAssignment(true);
   };
 
   const closeAddAssignmentForm = () => {
     setIsAddingAssignment(false);
+    props.onCloseEdit();
   };
 
   return (
@@ -21,14 +23,21 @@ const NewAssignment = (props) => {
       direction="column"
       alignItems="center"
     >
-      {isAddingAssignment && (
+      {(isAddingAssignment || props.isEditingAssignment) && (
         <NewAssignmentForm
           onClose={closeAddAssignmentForm}
           onAddAssignment={props.onAddAssignment}
+          onSaveAssignment={props.onSaveAssignment}
+          isEditingAssignment={props.isEditingAssignment}
+          assignment={props.assignment}
+          assignmentChangeHandlers={props.assignmentChangeHandlers}
+          onAddQuestion={props.onAddQuestion}
+          onDeleteQuestion={props.onDeleteQuestion}
+          isAddingAssignment={isAddingAssignment}
         />
       )}
 
-      {!isAddingAssignment && (
+      {!(isAddingAssignment || props.isEditingAssignment) && (
         <Grid item>
           <Button
             variant="contained"

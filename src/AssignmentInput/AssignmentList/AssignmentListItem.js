@@ -17,7 +17,7 @@ const AssignmentListItem = (props) => {
           edge="end"
           aria-label="edit"
           onClick={() => {
-            props.onDelete(assignment.id);
+            props.onEdit(assignment.id);
           }}
           size="large"
         >
