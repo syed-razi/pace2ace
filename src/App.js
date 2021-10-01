@@ -51,44 +51,6 @@ const App = () => {
   const [availability, setAvailability] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tabValue, setTabValue] = useState(0);
 
-  const handleChangeClass = (updatedClass) => {
-    const updatedAssignment = { ...assignment };
-    updatedAssignment.className = updatedClass;
-    setAssignment(updatedAssignment);
-  };
-
-  const handleChangeName = (updatedName) => {
-    const updatedAssignment = { ...assignment };
-    updatedAssignment.name = updatedName;
-    setAssignment(updatedAssignment);
-  };
-
-  const handleChangeStartDate = (updatedStartDate) => {
-    const updatedAssignment = { ...assignment };
-    updatedAssignment.startDate = updatedStartDate;
-    setAssignment(updatedAssignment);
-  };
-
-  const handleChangeDueDate = (updatedDueDate) => {
-    const updatedAssignment = { ...assignment };
-    updatedAssignment.dueDate = updatedDueDate;
-    setAssignment(updatedAssignment);
-  };
-
-  const handleChangeEstimatedHours = (updatedEstimatedHours) => {
-    const updatedAssignment = { ...assignment };
-    updatedAssignment.estimatedHours = updatedEstimatedHours;
-    setAssignment(updatedAssignment);
-  };
-
-  const assignmentChangeHandlers = {
-    onChangeClass: handleChangeClass,
-    onChangeName: handleChangeName,
-    onChangeStartDate: handleChangeStartDate,
-    onChangeDueDate: handleChangeDueDate,
-    onChangeEstimatedHours: handleChangeEstimatedHours,
-  };
-
   const handleAddAssignment = () => {
     const newAssignment = {
       id: assignment.className + assignment.name + Math.random(),
@@ -139,16 +101,7 @@ const App = () => {
 
   const closeAddAssignmentForm = () => {
     setIsAddingAssignment(false);
-  };
-
-  const handleAvailabilityChange = (id, newValue) => {
-    const updatedAvailability = [...availability];
-    updatedAvailability[+id] = +newValue;
-    setAvailability(updatedAvailability);
-  };
-
-  const handleTabChange = (event, value) => {
-    setTabValue(value);
+    setIsEditingAssignment(false);
   };
 
   const clearAssignmentInput = () => {
@@ -191,6 +144,54 @@ const App = () => {
     updatedAssignment.questions = updatedQuestions;
 
     setAssignment(updatedAssignment);
+  };
+
+  const handleChangeClass = (updatedClass) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.className = updatedClass;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeName = (updatedName) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.name = updatedName;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeStartDate = (updatedStartDate) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.startDate = updatedStartDate;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeDueDate = (updatedDueDate) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.dueDate = updatedDueDate;
+    setAssignment(updatedAssignment);
+  };
+
+  const handleChangeEstimatedHours = (updatedEstimatedHours) => {
+    const updatedAssignment = { ...assignment };
+    updatedAssignment.estimatedHours = updatedEstimatedHours;
+    setAssignment(updatedAssignment);
+  };
+
+  const assignmentChangeHandlers = {
+    onChangeClass: handleChangeClass,
+    onChangeName: handleChangeName,
+    onChangeStartDate: handleChangeStartDate,
+    onChangeDueDate: handleChangeDueDate,
+    onChangeEstimatedHours: handleChangeEstimatedHours,
+  };
+
+  const handleAvailabilityChange = (id, newValue) => {
+    const updatedAvailability = [...availability];
+    updatedAvailability[+id] = +newValue;
+    setAvailability(updatedAvailability);
+  };
+
+  const handleTabChange = (event, value) => {
+    setTabValue(value);
   };
 
   return (
