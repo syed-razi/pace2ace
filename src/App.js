@@ -47,6 +47,7 @@ const App = () => {
   });
   const [assignments, setAssignments] = useState([]);
   const [isEditingAssignment, setIsEditingAssignment] = useState(false);
+  const [isAddingAssignment, setIsAddingAssignment] = useState(false);
   const [availability, setAvailability] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tabValue, setTabValue] = useState(0);
 
@@ -108,12 +109,15 @@ const App = () => {
     const updatedAssignments = [...assignments];
     updatedAssignments[assignmentIndex] = assignment;
     setAssignments(updatedAssignments);
+    setIsEditingAssignment(false);
   };
 
   const handleDeleteAssignment = (assignmentID) => {
     setAssignments((prevAssignments) =>
       prevAssignments.filter((assignment) => assignment.id !== assignmentID)
     );
+
+    if (isEditingAssignment) setIsEditingAssignment(false);
   };
 
   const handleEditAssignment = (assignmentID) => {
@@ -126,6 +130,15 @@ const App = () => {
 
   const handleCloseEdit = () => {
     setIsEditingAssignment(false);
+  };
+
+  const openAddAssignmentForm = () => {
+    clearAssignmentInput();
+    setIsAddingAssignment(true);
+  };
+
+  const closeAddAssignmentForm = () => {
+    setIsAddingAssignment(false);
   };
 
   const handleAvailabilityChange = (id, newValue) => {
@@ -194,12 +207,15 @@ const App = () => {
               onDelete={handleDeleteAssignment}
               onEdit={handleEditAssignment}
               isEditingAssignment={isEditingAssignment}
+              isAddingAssignment={isAddingAssignment}
               assignment={assignment}
               assignmentChangeHandlers={assignmentChangeHandlers}
               clearAssignmentInput={clearAssignmentInput}
               onAddQuestion={handleAddQuestion}
               onDeleteQuestion={handleDeleteQuestion}
               onCloseEdit={handleCloseEdit}
+              onClose={closeAddAssignmentForm}
+              onOpen={openAddAssignmentForm}
             />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>

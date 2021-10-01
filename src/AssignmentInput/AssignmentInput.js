@@ -10,6 +10,7 @@ const AssignmentInput = (props) => {
         onAddAssignment={props.onAddAssignment}
         onSaveAssignment={props.onSaveAssignment}
         isEditingAssignment={props.isEditingAssignment}
+        isAddingAssignment={props.isAddingAssignment}
         assignmentToEdit={props.assignmentToEdit}
         assignment={props.assignment}
         assignmentChangeHandlers={props.assignmentChangeHandlers}
@@ -17,6 +18,8 @@ const AssignmentInput = (props) => {
         onAddQuestion={props.onAddQuestion}
         onDeleteQuestion={props.onDeleteQuestion}
         onCloseEdit={props.onCloseEdit}
+        onOpen={props.onOpen}
+        onClose={props.onClose}
       />
       {props.assignments.length > 0 && (
         <AssignmentList

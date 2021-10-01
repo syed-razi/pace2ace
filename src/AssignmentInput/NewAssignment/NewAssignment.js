@@ -1,31 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import NewAssignmentForm from "./NewAssignmentForm/NewAssignmentForm";
 
 const NewAssignment = (props) => {
-  const [isAddingAssignment, setIsAddingAssignment] = useState(false);
-
-  const openAddAssignmentForm = () => {
-    props.clearAssignmentInput();
-    setIsAddingAssignment(true);
-  };
-
-  const closeAddAssignmentForm = () => {
-    setIsAddingAssignment(false);
-    props.onCloseEdit();
-  };
-
   return (
-    <Grid
-      item
-      container
-      direction="column"
-      alignItems="center"
-    >
-      {(isAddingAssignment || props.isEditingAssignment) && (
+    <Grid item container direction="column" alignItems="center">
+      {(props.isAddingAssignment || props.isEditingAssignment) && (
         <NewAssignmentForm
-          onClose={closeAddAssignmentForm}
+          onClose={props.onClose}
           onAddAssignment={props.onAddAssignment}
           onSaveAssignment={props.onSaveAssignment}
           isEditingAssignment={props.isEditingAssignment}
@@ -33,16 +16,16 @@ const NewAssignment = (props) => {
           assignmentChangeHandlers={props.assignmentChangeHandlers}
           onAddQuestion={props.onAddQuestion}
           onDeleteQuestion={props.onDeleteQuestion}
-          isAddingAssignment={isAddingAssignment}
+          isAddingAssignment={props.isAddingAssignment}
         />
       )}
 
-      {!(isAddingAssignment || props.isEditingAssignment) && (
+      {!(props.isAddingAssignment || props.isEditingAssignment) && (
         <Grid item>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={openAddAssignmentForm}
+            onClick={props.onOpen}
             size="large"
           >
             Add Assignment
