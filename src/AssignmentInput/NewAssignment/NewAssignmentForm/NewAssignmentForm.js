@@ -51,7 +51,10 @@ const NewAssignmentForm = (props) => {
               label="Class"
               value={props.assignment.className}
               onChange={(e) =>
-                props.assignmentChangeHandlers.onChangeClass(e.target.value)
+                props.assignmentChangeHandlers.onChangeClass(
+                  "className",
+                  e.target.value
+                )
               }
             />
             <TextField
@@ -60,7 +63,10 @@ const NewAssignmentForm = (props) => {
               label="Assignment Name"
               value={props.assignment.name}
               onChange={(e) =>
-                props.assignmentChangeHandlers.onChangeName(e.target.value)
+                props.assignmentChangeHandlers.onChangeName(
+                  "name",
+                  e.target.value
+                )
               }
             />
           </Stack>
@@ -76,7 +82,10 @@ const NewAssignmentForm = (props) => {
                 inputFormat="MM/dd/yyyy"
                 value={props.assignment.startDate}
                 onChange={(newStartDate) =>
-                  props.assignmentChangeHandlers.onChangeStartDate(newStartDate)
+                  props.assignmentChangeHandlers.onChangeStartDate(
+                    "startDate",
+                    newStartDate
+                  )
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -89,7 +98,10 @@ const NewAssignmentForm = (props) => {
                 inputFormat="MM/dd/yyyy"
                 value={props.assignment.dueDate}
                 onChange={(newDueDate) =>
-                  props.assignmentChangeHandlers.onChangeDueDate(newDueDate)
+                  props.assignmentChangeHandlers.onChangeDueDate(
+                    "dueDate",
+                    newDueDate
+                  )
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -107,7 +119,10 @@ const NewAssignmentForm = (props) => {
                 label="Due Time"
                 value={props.assignment.dueDate}
                 onChange={(newDueDate) =>
-                  props.assignmentChangeHandlers.onChangeDueDate(newDueDate)
+                  props.assignmentChangeHandlers.onChangeDueDate(
+                    "dueDate",
+                    newDueDate
+                  )
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -125,6 +140,7 @@ const NewAssignmentForm = (props) => {
               value={props.assignment.estimatedHours}
               onChange={(e) =>
                 props.assignmentChangeHandlers.onChangeEstimatedHours(
+                  "estimatedHours",
                   e.target.value
                 )
               }

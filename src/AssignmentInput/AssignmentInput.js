@@ -14,7 +14,6 @@ const AssignmentInput = (props) => {
         assignmentToEdit={props.assignmentToEdit}
         assignment={props.assignment}
         assignmentChangeHandlers={props.assignmentChangeHandlers}
-        clearAssignmentInput={props.clearAssignmentInput}
         onAddQuestion={props.onAddQuestion}
         onDeleteQuestion={props.onDeleteQuestion}
         onCloseEdit={props.onCloseEdit}
