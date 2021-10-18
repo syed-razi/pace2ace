@@ -3,7 +3,7 @@ import QuestionsList from "./QuestionsList";
 import { Typography } from "@mui/material";
 import React from "react";
 
-const NewAssignmentQuestionsInput = (props) => {
+const NewAssignmentQuestionsInput = ({ assignment, dispatch }) => {
   const assignQuestion = (questions) => {
     if (questions.length > 0) {
       const question = questions[questions.length - 1].question;
@@ -20,15 +20,15 @@ const NewAssignmentQuestionsInput = (props) => {
       <Typography variant="h6" gutterBottom>
         Enter Question Details Below To Add a Question
       </Typography>
-      {props.assignment.questions.length > 0 && (
+      {assignment.questions.length > 0 && (
         <QuestionsList
-          questions={props.assignment.questions}
-          onDeleteQuestion={props.onDeleteQuestion}
+          questions={assignment.questions}
+          dispatch={dispatch}
         />
       )}
       <NewQuestionInput
-        onAddQuestion={props.onAddQuestion}
-        question={assignQuestion(props.assignment.questions)}
+        dispatch={dispatch}
+        question={assignQuestion(assignment.questions)}
       />
     </>
   );

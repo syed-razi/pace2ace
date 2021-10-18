@@ -2,30 +2,24 @@ import React from "react";
 import { Grid, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import NewAssignmentForm from "./NewAssignmentForm/NewAssignmentForm";
+import { ACTIONS } from "./../../App.js"
 
-const NewAssignment = (props) => {
+const NewAssignment = ({ dispatch, assignmentsState }) => {
   return (
     <Grid item container direction="column" alignItems="center">
-      {(props.isAddingAssignment || props.isEditingAssignment) && (
+      {(assignmentsState.isAddingAssignment || assignmentsState.isEditingAssignment) && (
         <NewAssignmentForm
-          onClose={props.onClose}
-          onAddAssignment={props.onAddAssignment}
-          onSaveAssignment={props.onSaveAssignment}
-          isEditingAssignment={props.isEditingAssignment}
-          assignment={props.assignment}
-          assignmentChangeHandlers={props.assignmentChangeHandlers}
-          onAddQuestion={props.onAddQuestion}
-          onDeleteQuestion={props.onDeleteQuestion}
-          isAddingAssignment={props.isAddingAssignment}
+          dispatch={dispatch}
+          assignmentsState={assignmentsState}
         />
       )}
 
-      {!(props.isAddingAssignment || props.isEditingAssignment) && (
+      {!(assignmentsState.isAddingAssignment || assignmentsState.isEditingAssignment) && (
         <Grid item>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={props.onOpen}
+            onClick={() => dispatch({ type: ACTIONS.OPEN_ASSIGNMENT_INPUT })}
             size="large"
           >
             Add Assignment

@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, List, Grid, Box, Stack } from "@mui/material";
 import AssignmentListItem from "./AssignmentListItem";
 
-const AssignmentDetails = (props) => {
+const AssignmentDetails = ({ dispatch, assignments }) => {
   return (
     <Grid item container direction="column" alignItems="center">
       <Typography variant="h6" gutterBottom>
@@ -16,12 +16,11 @@ const AssignmentDetails = (props) => {
       >
         <List component="assignment-list" aria-label="list of assignments">
           <Stack spacing={1}>
-            {props.assignments.map((assignment) => (
+            {assignments.map((assignment) => (
               <AssignmentListItem
                 key={assignment.id}
                 assignment={assignment}
-                onDelete={props.onDelete}
-                onEdit={props.onEdit}
+                dispatch={dispatch}
               />
             ))}
           </Stack>

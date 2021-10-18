@@ -7,23 +7,24 @@ import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 import React from "react";
 import NewAssignmentQuestionsInput from "./NewAssignmentQuestionsInput/NewAssignmentQuestionsInput";
+import { ACTIONS } from "./../../../App";
 
-const NewAssignmentForm = (props) => {
+const NewAssignmentForm = ({ dispatch, assignmentsState }) => {
   const [isAddingQuestions, setIsAddingQuestions] = useState(false);
 
   const handleAddAssignment = (event) => {
     event.preventDefault();
-    if (props.assignment.className.length > 0) {
-      props.onAddAssignment();
-      props.onClose();
+    if (assignmentsState.assignment.className.length > 0) {
+      dispatch({ type: ACTIONS.ADD_ASSIGNMENT });
+      dispatch({ type: ACTIONS.CLOSE_ASSIGNMENT_INPUT });
     }
   };
 
   const handleSaveAssignment = (event) => {
     event.preventDefault();
-    if (props.assignment.className.length > 0) {
-      props.onSaveAssignment();
-      props.onClose();
+    if (assignmentsState.assignment.className.length > 0) {
+      dispatch({ type: ACTIONS.SAVE_ASSIGNMENT });
+      dispatch({ type: ACTIONS.CLOSE_ASSIGNMENT_INPUT });
     }
   };
 
@@ -49,24 +50,32 @@ const NewAssignmentForm = (props) => {
               fullWidth
               id="standard-basic"
               label="Class"
-              value={props.assignment.className}
-              onChange={(e) =>
-                props.assignmentChangeHandlers.onChangeClass(
-                  "className",
-                  e.target.value
-                )
+              value={assignmentsState.assignment.className}
+              onChange={
+                (e) =>
+                  dispatch({
+                    type: ACTIONS.CHANGE_INPUT,
+                    payload: {
+                      inputField: "className",
+                      updatedInput: e.target.value,
+                    },
+                  })
               }
             />
             <TextField
               fullWidth
               id="standard-basic"
               label="Assignment Name"
-              value={props.assignment.name}
-              onChange={(e) =>
-                props.assignmentChangeHandlers.onChangeName(
-                  "name",
-                  e.target.value
-                )
+              value={assignmentsState.assignment.name}
+              onChange={
+                (e) =>
+                  dispatch({
+                    type: ACTIONS.CHANGE_INPUT,
+                    payload: {
+                      inputField: "name",
+                      updatedInput: e.target.value,
+                    },
+                  })
               }
             />
           </Stack>
@@ -80,12 +89,16 @@ const NewAssignmentForm = (props) => {
               <DatePicker
                 label="Start Date"
                 inputFormat="MM/dd/yyyy"
-                value={props.assignment.startDate}
-                onChange={(newStartDate) =>
-                  props.assignmentChangeHandlers.onChangeStartDate(
-                    "startDate",
-                    newStartDate
-                  )
+                value={assignmentsState.assignment.startDate}
+                onChange={
+                  (newStartDate) =>
+                    dispatch({
+                      type: ACTIONS.CHANGE_INPUT,
+                      payload: {
+                        inputField: "startDate",
+                        updatedInput: newStartDate,
+                      },
+                    })
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -96,12 +109,16 @@ const NewAssignmentForm = (props) => {
               <DatePicker
                 label="Due Date"
                 inputFormat="MM/dd/yyyy"
-                value={props.assignment.dueDate}
-                onChange={(newDueDate) =>
-                  props.assignmentChangeHandlers.onChangeDueDate(
-                    "dueDate",
-                    newDueDate
-                  )
+                value={assignmentsState.assignment.dueDate}
+                onChange={
+                  (newDueDate) =>
+                    dispatch({
+                      type: ACTIONS.CHANGE_INPUT,
+                      payload: {
+                        inputField: "dueDate",
+                        updatedInput: newDueDate,
+                      },
+                    })
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -117,12 +134,16 @@ const NewAssignmentForm = (props) => {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <TimePicker
                 label="Due Time"
-                value={props.assignment.dueDate}
-                onChange={(newDueDate) =>
-                  props.assignmentChangeHandlers.onChangeDueDate(
-                    "dueDate",
-                    newDueDate
-                  )
+                value={assignmentsState.assignment.dueDate}
+                onChange={
+                  (newDueDate) =>
+                    dispatch({
+                      type: ACTIONS.CHANGE_INPUT,
+                      payload: {
+                        inputField: "dueDate",
+                        updatedInput: newDueDate,
+                      },
+                    })
                 }
                 renderInput={(params) => (
                   <TextField sx={{ width: "100%" }} {...params} />
@@ -137,23 +158,30 @@ const NewAssignmentForm = (props) => {
               InputLabelProps={{
                 shrink: true,
               }}
-              value={props.assignment.estimatedHours}
-              onChange={(e) =>
-                props.assignmentChangeHandlers.onChangeEstimatedHours(
-                  "estimatedHours",
-                  e.target.value
-                )
+              value={assignmentsState.assignment.estimatedHours}
+              onChange={
+                (e) =>
+                  dispatch({
+                    type: ACTIONS.CHANGE_INPUT,
+                    payload: {
+                        inputField: "estimatedHours",
+                        updatedInput: e.target.value,
+                      },
+                  })
               }
             />
           </Stack>
-          {(isAddingQuestions || props.assignment.questions.length > 0) && (
+          {(isAddingQuestions ||
+            assignmentsState.assignment.questions.length > 0) && (
             <NewAssignmentQuestionsInput
-              assignment={props.assignment}
-              onAddQuestion={props.onAddQuestion}
-              onDeleteQuestion={props.onDeleteQuestion}
+              assignment={assignmentsState.assignment}
+              dispatch={dispatch}
             />
           )}
-          {!(isAddingQuestions || props.assignment.questions.length > 0) && (
+          {!(
+            isAddingQuestions ||
+            assignmentsState.assignment.questions.length > 0
+          ) && (
             <Button
               sx={{ width: { xs: "90%", md: "50%" } }}
               variant="outlined"
@@ -163,7 +191,7 @@ const NewAssignmentForm = (props) => {
               Add Questions
             </Button>
           )}
-          {props.isAddingAssignment && (
+          {assignmentsState.isAddingAssignment && (
             <Button
               sx={{ width: { xs: "90%", md: "50%" } }}
               variant="contained"
@@ -173,7 +201,7 @@ const NewAssignmentForm = (props) => {
               Add Assignment
             </Button>
           )}
-          {props.isEditingAssignment && (
+          {assignmentsState.isEditingAssignment && (
             <Button
               sx={{ width: { xs: "90%", md: "50%" } }}
               variant="contained"
@@ -186,7 +214,9 @@ const NewAssignmentForm = (props) => {
           <Button
             sx={{ width: { xs: "90%", md: "50%" } }}
             variant="outlined"
-            onClick={props.onClose}
+            onClick={
+              () => dispatch({ type: ACTIONS.CLOSE_ASSIGNMENT_INPUT })
+            }
           >
             Close
           </Button>

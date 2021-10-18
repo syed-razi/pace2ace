@@ -1,30 +1,28 @@
 import React from "react";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-} from "@mui/material";
+import { List, ListItem, ListItemText, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { ACTIONS } from "../../../../App";
 
-const QuestionsList = (props) => {
+const QuestionsList = ({ questions, dispatch }) => {
   return (
-      <List sx={{width: {xs: "100%"}}}>
-        {props.questions.map(({ question, marks, id }) => (
-          <ListItem divider key={id}>
-            <ListItemText primary={question} secondary={marks + " marks"} />
-              <Button
-                variant="contained"
-                startIcon={<DeleteIcon />}
-                className="button"
-                onClick={() => props.onDeleteQuestion(id)}
-              >
-                Delete
-              </Button>
-          </ListItem>
-        ))}
-      </List>
+    <List sx={{ width: { xs: "100%" } }}>
+      {questions.map(({ question, marks, id }) => (
+        <ListItem divider key={id}>
+          <ListItemText primary={question} secondary={marks + " marks"} />
+          <Button
+            variant="contained"
+            startIcon={<DeleteIcon />}
+            className="button"
+            onClick={
+              () => dispatch({ type: ACTIONS.DELETE_QUESTION, payload: { questionId: id} })
+            }
+          >
+            Delete
+          </Button>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 
-export default (QuestionsList);
+export default QuestionsList;

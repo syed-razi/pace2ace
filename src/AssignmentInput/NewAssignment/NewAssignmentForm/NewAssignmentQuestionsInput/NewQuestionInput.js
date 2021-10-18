@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { ACTIONS } from "../../../../App";
 
-const NewQuestionInput = (props) => {
-  const [question, setQuestion] = useState(props.question);
+const NewQuestionInput = ({ question, dispatch }) => {
+  const [q, setQ] = useState(question);
   const [marks, setMarks] = useState("");
 
   useEffect(() => {
-    setQuestion(props.question);
-  }, [props.question]);
+    setQ(question);
+  }, [question]);
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
-    const questionData = {
-      question: question,
-      marks: marks,
-    };
-    props.onAddQuestion(questionData);
+    dispatch({
+      type: ACTIONS.ADD_QUESTION,
+      payload: { question: q, marks: marks },
+    });
     setMarks("");
   };
 
@@ -26,8 +26,8 @@ const NewQuestionInput = (props) => {
         <TextField
           id="standard-basic"
           label="Question"
-          onChange={(e) => setQuestion(e.target.value)}
-          value={question}
+          onChange={(e) => setQ(e.target.value)}
+          value={q}
         />
         <TextField
           id="standard-number"

@@ -2,10 +2,9 @@ import React from "react";
 import { IconButton, ListItemText, ListItem, Paper } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
+import { ACTIONS } from "../../App";
 
-const AssignmentListItem = (props) => {
-  const { assignment } = props;
-
+const AssignmentListItem = ({ assignment, dispatch }) => {
   return (
     <Paper elevation={3}>
       <ListItem>
@@ -17,7 +16,10 @@ const AssignmentListItem = (props) => {
           edge="end"
           aria-label="edit"
           onClick={() => {
-            props.onEdit(assignment.id);
+            dispatch({
+              type: ACTIONS.EDIT_ASSIGNMENT,
+              payload: { assignmentId: assignment.id },
+            });
           }}
           size="large"
         >
@@ -27,7 +29,10 @@ const AssignmentListItem = (props) => {
           edge="end"
           aria-label="delete"
           onClick={() => {
-            props.onDelete(assignment.id);
+            dispatch({
+              type: ACTIONS.DELETE_ASSIGNMENT,
+              payload: { assignmentId: assignment.id },
+            });
           }}
           size="large"
         >

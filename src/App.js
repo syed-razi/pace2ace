@@ -36,7 +36,7 @@ const theme = createTheme({
   },
 });
 
-const ACTIONS = {
+export const ACTIONS = {
   ADD_ASSIGNMENT: "add-assignment",
   DELETE_ASSIGNMENT: "delete-assignment",
   SAVE_ASSIGNMENT: "save-assignment",
@@ -70,16 +70,16 @@ const assignmentsReducer = (assignmentsState, action) => {
     }
     case ACTIONS.DELETE_ASSIGNMENT: {
       if (
-        assignmentsState.assignment.id === action.payload.assignmentID &&
+        assignmentsState.assignment.id === action.payload.assignmentId &&
         assignmentsState.isEditingAssignment
       ) {
-        assignmentsState.isEditingAssignment = true;
+        assignmentsState.isEditingAssignment = false;
       }
 
       return {
         ...assignmentsState,
         assignments: assignmentsState.assignments.filter(
-          (assignment) => assignment.id !== action.payload.assignmentID
+          (assignment) => assignment.id !== action.payload.assignmentId
         ),
       };
     }
@@ -100,7 +100,7 @@ const assignmentsReducer = (assignmentsState, action) => {
       assignmentsState.isEditingAssignment = true;
 
       const assignmentToEdit = assignmentsState.assignments.filter(
-        (assignment) => assignment.id === action.payload.assignmentID
+        (assignment) => assignment.id === action.payload.assignmentId
       )[0];
 
       return {
@@ -131,8 +131,8 @@ const assignmentsReducer = (assignmentsState, action) => {
     }
     case ACTIONS.ADD_QUESTION: {
       const question = {
-        question: action.payload.newQuestion.question,
-        marks: action.payload.newQuestion.marks,
+        question: action.payload.question,
+        marks: action.payload.marks,
         id:
           assignmentsState.assignment.className +
           assignmentsState.assignment.name +
@@ -202,72 +202,7 @@ const App = () => {
   const [availability, setAvailability] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tabValue, setTabValue] = useState(0);
 
-  const handleAddAssignment = () => {
-    dispatchAssignments({
-      type: ACTIONS.ADD_ASSIGNMENT,
-    });
-  };
-
-  const handleDeleteAssignment = (assignmentID) => {
-    dispatchAssignments({
-      type: ACTIONS.DELETE_ASSIGNMENT,
-      payload: { assignmentID: assignmentID },
-    });
-  };
-
-  const handleSaveAssignment = () => {
-    dispatchAssignments({
-      type: ACTIONS.SAVE_ASSIGNMENT,
-    });
-  };
-
-  const handleEditAssignment = (assignmentID) => {
-    dispatchAssignments({
-      type: ACTIONS.EDIT_ASSIGNMENT,
-      payload: { assignmentID: assignmentID },
-    });
-  };
-
-  const handleCloseEdit = () => {
-    dispatchAssignments({ type: ACTIONS.CLOSE_EDIT });
-  };
-
-  const openAddAssignmentForm = () => {
-    dispatchAssignments({ type: ACTIONS.OPEN_ASSIGNMENT_INPUT });
-  };
-
-  const closeAddAssignmentForm = () => {
-    dispatchAssignments({ type: ACTIONS.CLOSE_ASSIGNMENT_INPUT });
-  };
-
-  const handleAddQuestion = (newQuestion) => {
-    dispatchAssignments({
-      type: ACTIONS.ADD_QUESTION,
-      payload: { newQuestion: newQuestion },
-    });
-  };
-
-  const handleDeleteQuestion = (questionId) => {
-    dispatchAssignments({
-      type: ACTIONS.DELETE_QUESTION,
-      payload: { questionId: questionId },
-    });
-  };
-
-  const handleChangeInput = (inputField, updatedInput) => {
-    dispatchAssignments({
-      type: ACTIONS.CHANGE_INPUT,
-      payload: { inputField: inputField, updatedInput: updatedInput },
-    });
-  };
-
-  const assignmentChangeHandlers = {
-    onChangeClass: handleChangeInput,
-    onChangeName: handleChangeInput,
-    onChangeStartDate: handleChangeInput,
-    onChangeDueDate: handleChangeInput,
-    onChangeEstimatedHours: handleChangeInput,
-  };
+  
 
   const handleAvailabilityChange = (id, newValue) => {
     const updatedAvailability = [...availability];
@@ -287,20 +222,8 @@ const App = () => {
           <TabLabels handleTabChange={handleTabChange} tabValue={tabValue} />
           <TabPanel value={tabValue} index={0}>
             <AssignmentInput
-              assignments={assignmentsState.assignments}
-              onAddAssignment={handleAddAssignment}
-              onSaveAssignment={handleSaveAssignment}
-              onDelete={handleDeleteAssignment}
-              onEdit={handleEditAssignment}
-              isEditingAssignment={assignmentsState.isEditingAssignment}
-              isAddingAssignment={assignmentsState.isAddingAssignment}
-              assignment={assignmentsState.assignment}
-              assignmentChangeHandlers={assignmentChangeHandlers}
-              onAddQuestion={handleAddQuestion}
-              onDeleteQuestion={handleDeleteQuestion}
-              onCloseEdit={handleCloseEdit}
-              onClose={closeAddAssignmentForm}
-              onOpen={openAddAssignmentForm}
+              dispatch={dispatchAssignments}
+              assignmentsState={assignmentsState}
             />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
