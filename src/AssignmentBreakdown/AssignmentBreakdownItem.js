@@ -95,8 +95,11 @@ const AssignmentBreakdownItem = (props) => {
   };
 
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion sx={{ bgcolor: "primary.main" }}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}
+        sx={{ color: "#fff" }}
+      >
         <Grid container justifyContent="space-around" alignItems="center">
           <Grid item>
             <Typography>Class: {props.assignment.className}</Typography>
