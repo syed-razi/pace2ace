@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { List, ListItem, ListItemText, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ACTIONS } from "../../../../App";
+import AssignmentsContext from "../../../../store/assignments-context";
 
-const QuestionsList = ({ questions, dispatch }) => {
+const QuestionsList = ({ questions }) => {
+  const { dispatchAssignments: dispatch, ACTIONS } = useContext(AssignmentsContext);
+
   return (
     <List sx={{ width: { xs: "100%" } }}>
       {questions.map(({ question, marks, id }) => (

@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, List, Grid, Box, Stack } from "@mui/material";
 import AssignmentListItem from "./AssignmentListItem";
 
-const AssignmentDetails = ({ dispatch, assignments }) => {
+const AssignmentList = ({ assignments }) => {
   return (
     <Grid item container direction="column" alignItems="center">
       <Typography variant="h6" gutterBottom>
@@ -20,7 +20,6 @@ const AssignmentDetails = ({ dispatch, assignments }) => {
               <AssignmentListItem
                 key={assignment.id}
                 assignment={assignment}
-                dispatch={dispatch}
               />
             ))}
           </Stack>
@@ -30,4 +29,4 @@ const AssignmentDetails = ({ dispatch, assignments }) => {
   );
 };
 
-export default AssignmentDetails;
+export default AssignmentList;

@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import AssignmentsContext from "../store/assignments-context";
 import NewAssignment from "./NewAssignment/NewAssignment";
 import AssignmentList from "./AssignmentList/AssignmentList";
 import { Grid } from "@mui/material";
 
-const AssignmentInput = ({ dispatch, assignmentsState }) => {
+const AssignmentInput = () => {
+  const { assignmentsState, dispatchAssignments: dispatch, ACTIONS } = useContext(AssignmentsContext);
+
   return (
     <Grid container direction="column" alignItems="center" spacing={10}>
       <NewAssignment
         dispatch={dispatch}
         assignmentsState={assignmentsState}
+        ACTIONS={ACTIONS}
       />
       {assignmentsState.assignments.length > 0 && (
         <AssignmentList
-          dispatch={dispatch}
           assignments={assignmentsState.assignments}
         />
       )}

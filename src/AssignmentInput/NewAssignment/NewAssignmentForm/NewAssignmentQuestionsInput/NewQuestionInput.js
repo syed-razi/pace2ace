@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TextField, Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { ACTIONS } from "../../../../App";
+import AssignmentsContext from "../../../../store/assignments-context";
 
-const NewQuestionInput = ({ question, dispatch }) => {
+const NewQuestionInput = ({ question }) => {
+  const { dispatchAssignments: dispatch, ACTIONS } = useContext(AssignmentsContext);
+
   const [q, setQ] = useState(question);
   const [marks, setMarks] = useState("");
 

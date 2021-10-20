@@ -7,9 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import SaveIcon from "@mui/icons-material/Save";
 import React from "react";
 import NewAssignmentQuestionsInput from "./NewAssignmentQuestionsInput/NewAssignmentQuestionsInput";
-import { ACTIONS } from "./../../../App";
 
-const NewAssignmentForm = ({ dispatch, assignmentsState }) => {
+const NewAssignmentForm = ({ dispatch, assignmentsState, ACTIONS }) => {
   const [isAddingQuestions, setIsAddingQuestions] = useState(false);
 
   const handleAddAssignment = (event) => {
@@ -175,7 +174,6 @@ const NewAssignmentForm = ({ dispatch, assignmentsState }) => {
             assignmentsState.assignment.questions.length > 0) && (
             <NewAssignmentQuestionsInput
               assignment={assignmentsState.assignment}
-              dispatch={dispatch}
             />
           )}
           {!(

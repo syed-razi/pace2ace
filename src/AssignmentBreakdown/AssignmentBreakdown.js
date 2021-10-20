@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import AssignmentBreakdownItem from "./AssignmentBreakdownItem";
+import AssignmentsContext from "../store/assignments-context";
 
 const AssignmentBreakdown = (props) => {
+  const { assignmentsState } = useContext(AssignmentsContext);
+
   return (
     <>
-      {props.assignments.map((assignment) => (
+      {assignmentsState.assignments.map((assignment) => (
         <AssignmentBreakdownItem
           key={assignment.id}
           assignment={assignment}

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IconButton, ListItemText, ListItem, Paper } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
-import { ACTIONS } from "../../App";
+import AssignmentsContext from "../../store/assignments-context";
 
-const AssignmentListItem = ({ assignment, dispatch }) => {
+const AssignmentListItem = ({ assignment }) => {
+  const { dispatchAssignments: dispatch, ACTIONS } = useContext(AssignmentsContext);
+
   return (
     <Paper elevation={3}>
       <ListItem>

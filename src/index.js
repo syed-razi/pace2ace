@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import AssignmentsProvider from "./store/AssignmentsProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AssignmentsProvider>
+      <App />
+    </AssignmentsProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

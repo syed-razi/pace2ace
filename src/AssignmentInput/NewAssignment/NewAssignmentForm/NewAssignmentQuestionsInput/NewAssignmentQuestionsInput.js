@@ -3,7 +3,7 @@ import QuestionsList from "./QuestionsList";
 import { Typography } from "@mui/material";
 import React from "react";
 
-const NewAssignmentQuestionsInput = ({ assignment, dispatch }) => {
+const NewAssignmentQuestionsInput = ({ assignment }) => {
   const assignQuestion = (questions) => {
     if (questions.length > 0) {
       const question = questions[questions.length - 1].question;
@@ -23,11 +23,9 @@ const NewAssignmentQuestionsInput = ({ assignment, dispatch }) => {
       {assignment.questions.length > 0 && (
         <QuestionsList
           questions={assignment.questions}
-          dispatch={dispatch}
         />
       )}
       <NewQuestionInput
-        dispatch={dispatch}
         question={assignQuestion(assignment.questions)}
       />
     </>

@@ -2,15 +2,15 @@ import React from "react";
 import { Grid, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import NewAssignmentForm from "./NewAssignmentForm/NewAssignmentForm";
-import { ACTIONS } from "./../../App.js"
 
-const NewAssignment = ({ dispatch, assignmentsState }) => {
+const NewAssignment = ({ dispatch, assignmentsState, ACTIONS }) => {
   return (
     <Grid item container direction="column" alignItems="center">
       {(assignmentsState.isAddingAssignment || assignmentsState.isEditingAssignment) && (
         <NewAssignmentForm
           dispatch={dispatch}
           assignmentsState={assignmentsState}
+          ACTIONS={ACTIONS}
         />
       )}
 
