@@ -57,13 +57,13 @@ const App = () => {
         <Box sx={{ width: "100%" }}>
           <TabLabels handleTabChange={handleTabChange} tabValue={tabValue} />
           <TabPanel value={tabValue} index={0}>
-            <AssignmentInput />
-          </TabPanel>
-          <TabPanel value={tabValue} index={1}>
             <AvailabilityForm
               availability={availability}
               onAvailabilityChange={handleAvailabilityChange}
             />
+          </TabPanel>
+          <TabPanel value={tabValue} index={1}>
+            <AssignmentInput />
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
             <AssignmentBreakdown

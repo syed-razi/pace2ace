@@ -16,8 +16,8 @@ export default function TabLabels(props) {
         aria-label="basic tabs example"
         centered={true}
       >
-        <Tab label="Add Assignments" {...a11yProps(0)} />
-        <Tab label="Set Availability" {...a11yProps(1)} />
+        <Tab label="Set Availability" {...a11yProps(0)} />
+        <Tab label="Add Assignments" {...a11yProps(1)} />
         <Tab label="View Breakdown" {...a11yProps(2)} />
       </Tabs>
     </Box>
